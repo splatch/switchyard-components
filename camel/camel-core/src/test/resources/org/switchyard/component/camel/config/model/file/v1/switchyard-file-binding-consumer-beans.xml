@@ -12,34 +12,34 @@
     Public License, v.2.1 along with this distribution; if not, write to the 
     Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, 
     MA 02110-1301, USA. -->
-<switchyard 
-    xmlns="urn:switchyard-config:switchyard:1.0"
-    xmlns:camel="urn:switchyard-component-camel:config:1.0" 
-    xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912" >
+<switchyard xmlns="urn:switchyard-config:switchyard:1.0"
+    xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+    xmlns:common="urn:switchyard-component-camel-common:config:1.0"
+    xmlns:core="urn:switchyard-component-camel-core:config:1.0">
 
-    <sca:composite name="camelTest" targetNamespace="urn:camel-core:test:1.0">
-        <sca:service name="camelTest" promote="SimpleCamelService">
-            <camel:binding.file>
-                <camel:directory>/input/directory</camel:directory>
-                <camel:consume>
-                    <camel:delete>false</camel:delete>
-                    <camel:recursive>true</camel:recursive>
-                    <camel:noop>false</camel:noop>
-                    <camel:preMove>.inProgress</camel:preMove>
-                    <camel:move>.done</camel:move>
-                    <camel:moveFailed>.failed</camel:moveFailed>
-                    <camel:include>*.csv</camel:include>
-                    <camel:exclude>*.xml</camel:exclude>
-                    <camel:idempotent>true</camel:idempotent>
-                    <camel:sortBy>file:name</camel:sortBy>
-                    <camel:readLock>fileLock</camel:readLock>
-                    <camel:readLockTimeout>10</camel:readLockTimeout>
-                    <camel:readLockCheckInterval>1000</camel:readLockCheckInterval>
-                    <camel:startingDirectoryMustExist>false</camel:startingDirectoryMustExist>
-                    <camel:directoryMustExist>true</camel:directoryMustExist>
-                    <camel:doneFileName>done</camel:doneFileName>
-                </camel:consume>
-            </camel:binding.file>
+    <sca:composite name="coreTest" targetNamespace="urn:core-core:test:1.0">
+        <sca:service name="coreTest" promote="SimplecoreService">
+            <core:binding.file>
+                <common:directory>/input/directory</common:directory>
+                <core:consume>
+                    <common:delete>false</common:delete>
+                    <common:recursive>true</common:recursive>
+                    <common:noop>false</common:noop>
+                    <common:preMove>.inProgress</common:preMove>
+                    <common:move>.done</common:move>
+                    <common:moveFailed>.failed</common:moveFailed>
+                    <common:include>*.csv</common:include>
+                    <common:exclude>*.xml</common:exclude>
+                    <common:idempotent>true</common:idempotent>
+                    <common:sortBy>file:name</common:sortBy>
+                    <common:readLock>fileLock</common:readLock>
+                    <common:readLockTimeout>10</common:readLockTimeout>
+                    <common:readLockCheckInterval>1000</common:readLockCheckInterval>
+                    <common:startingDirectoryMustExist>false</common:startingDirectoryMustExist>
+                    <common:directoryMustExist>true</common:directoryMustExist>
+                    <common:doneFileName>done</common:doneFileName>
+                </core:consume>
+            </core:binding.file>
         </sca:service>
     </sca:composite>
 </switchyard>

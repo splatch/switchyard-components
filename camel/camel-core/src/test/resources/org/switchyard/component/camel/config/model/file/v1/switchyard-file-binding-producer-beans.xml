@@ -12,26 +12,25 @@
     Public License, v.2.1 along with this distribution; if not, write to the 
     Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, 
     MA 02110-1301, USA. -->
-<switchyard 
-    xmlns="urn:switchyard-config:switchyard:1.0"
-    xmlns:camel="urn:switchyard-component-camel:config:1.0" 
-    xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912" >
+<switchyard xmlns="urn:switchyard-config:switchyard:1.0"
+    xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+    xmlns:common="urn:switchyard-component-camel-common:config:1.0"
+    xmlns:core="urn:switchyard-component-camel-core:config:1.0">
 
-    <sca:composite name="camelTest" targetNamespace="urn:camel-core:test:1.0">
-        <sca:service name="camelTest" promote="SimpleCamelService">
-            <camel:binding.file>
-                <operationSelector operationName="print"/>
-                <camel:directory>/input/directory</camel:directory>
-                <camel:autoCreate>false</camel:autoCreate>
-                <camel:produce>
-                    <camel:fileExist>Override</camel:fileExist>
-                    <camel:tempPrefix>prefix_</camel:tempPrefix>
-                    <camel:keepLastModified>false</camel:keepLastModified>
-                    <camel:eagerDeleteTargetFile>true</camel:eagerDeleteTargetFile>
-                    <camel:doneFileName>processed</camel:doneFileName>
-                </camel:produce>
-            </camel:binding.file>
-        </sca:service>
+    <sca:composite name="coreTest" targetNamespace="urn:core-core:test:1.0">
+        <sca:reference name="test" multiplicity="0..1" promote="test/test">
+            <core:binding.file>
+                <common:directory>/input/directory</common:directory>
+                <common:autoCreate>false</common:autoCreate>
+                <core:produce>
+                    <common:fileExist>Override</common:fileExist>
+                    <common:tempPrefix>prefix_</common:tempPrefix>
+                    <common:keepLastModified>false</common:keepLastModified>
+                    <common:eagerDeleteTargetFile>true</common:eagerDeleteTargetFile>
+                    <common:doneFileName>processed</common:doneFileName>
+                </core:produce>
+            </core:binding.file>
+        </sca:reference>
     </sca:composite>
 
 </switchyard>

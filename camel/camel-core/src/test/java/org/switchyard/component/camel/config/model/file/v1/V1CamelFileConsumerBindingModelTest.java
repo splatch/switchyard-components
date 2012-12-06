@@ -21,27 +21,20 @@
 package org.switchyard.component.camel.config.model.file.v1;
 
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
-
-import java.io.File;
 
 import org.apache.camel.component.file.FileEndpoint;
-import org.custommonkey.xmlunit.Diff;
-import org.custommonkey.xmlunit.XMLUnit;
-import org.junit.Before;
-import org.junit.Test;
-import org.switchyard.component.camel.config.model.file.CamelFileBindingModel;
-import org.switchyard.component.camel.config.model.file.CamelFileConsumerBindingModel;
-import org.switchyard.component.camel.config.model.v1.V1BaseCamelModelTest;
-import org.switchyard.component.camel.config.model.v1.V1CamelBindingModel;
-import org.switchyard.config.model.Validation;
+import org.switchyard.component.camel.config.test.v1.V1BaseCamelServiceBindingModelTest;
+import org.switchyard.component.camel.core.model.file.CamelFileConsumerBindingModel;
+import org.switchyard.component.camel.core.model.file.v1.V1CamelFileBindingModel;
+import org.switchyard.component.camel.core.model.file.v1.V1CamelFileConsumerBindingModel;
+import org.switchyard.component.camel.core.model.v1.V1CamelBindingModel;
 
 /**
  * Test for {@link V1CamelBindingModel}.
  * 
  * @author Mario Antollini
  */
-public class V1CamelFileConsumerBindingModelTest extends V1BaseCamelModelTest<V1CamelFileBindingModel> {
+public class V1CamelFileConsumerBindingModelTest extends V1BaseCamelServiceBindingModelTest<V1CamelFileBindingModel, FileEndpoint> {
 
     private static final String CAMEL_XML = "switchyard-file-binding-consumer-beans.xml";
 
@@ -68,72 +61,12 @@ public class V1CamelFileConsumerBindingModelTest extends V1BaseCamelModelTest<V1
         "readLock=fileLock&readLockTimeout=10&readLockCheckInterval=1000&" +
         "startingDirectoryMustExist=false&directoryMustExist=true&doneFileName=done";
 
-    @Before
-    public void setUp() throws Exception {
+    public V1CamelFileConsumerBindingModelTest() {
+        super(FileEndpoint.class, CAMEL_XML);
     }
 
-    @Test
-    public void testConfigOverride() {
-        // set a value on an existing config element
-        CamelFileBindingModel bindingModel = createFileConsumerModel();
-        assertEquals(READ_LOCK_CHECK_INTERVAL, bindingModel.getConsumer().getReadLockCheckInterval());
-        bindingModel.getConsumer().setReadLockCheckInterval(2500);
-        assertEquals(new Integer(2500), bindingModel.getConsumer().getReadLockCheckInterval());
-    }
-
-    @Test
-    public void testReadConfig() throws Exception {
-        final V1CamelFileBindingModel bindingModel = getFirstCamelBinding(CAMEL_XML);
-        final Validation validateModel = bindingModel.validateModel();
-        //Valid Model?
-        assertTrue(validateModel.isValid());
-        //Camel File
-        assertEquals(DIRECTORY, bindingModel.getDirectory());
-        //Camel File Consumer
-        assertConsumerModel(bindingModel.getConsumer());
-        assertEquals(CAMEL_URI, bindingModel.getComponentURI().toString());
-    }
-
-    @Test
-    public void testWriteConfig() throws Exception {
-        CamelFileBindingModel bindingModel = createFileConsumerModel();
-        assertEquals(DIRECTORY, bindingModel.getDirectory());
-        //Camel File Consumer
-        assertConsumerModel(bindingModel.getConsumer());
-        assertEquals(CAMEL_URI, bindingModel.getComponentURI().toString());
-    }
-
-    /**
-     * This test fails because of namespace prefix
-     * 
-     */
-    @Test
-    public void compareWriteConfig() throws Exception {
-        String refXml = getFirstCamelBinding(CAMEL_XML).toString();
-        String newXml = createFileConsumerModel().toString();
-        XMLUnit.setIgnoreWhitespace(true);
-        Diff diff = XMLUnit.compareXML(refXml, newXml);
-        assertTrue(diff.toString(), diff.similar());
-    }
-
-    @Test
-    public void testComponentURI() {
-        CamelFileBindingModel bindingModel = createFileConsumerModel();
-        assertEquals(CAMEL_URI, bindingModel.getComponentURI().toString());
-    }
-
-    @Test
-    public void testCamelEndpoint() {
-        CamelFileBindingModel model = createFileConsumerModel();
-        FileEndpoint endpoint = getEndpoint(model, FileEndpoint.class);
-        //assertEquals(endpoint.getId(), OPERATION_NAME); //No way to get the operation name
-        assertEquals(DIRECTORY.replace("/", File.separator), endpoint.getConfiguration().getDirectory());
-        assertEquals(DELETE.booleanValue(), endpoint.isDelete());
-        assertEquals(READ_LOCK_CHECK_INTERVAL.longValue(), endpoint.getReadLockCheckInterval());
-        assertEquals(DIRECTORY_MUST_EXIST.booleanValue(), endpoint.isDirectoryMustExist());
-    }
-
-    private CamelFileBindingModel createFileConsumerModel() {
+    @Override
+    protected V1CamelFileBindingModel createTestModel() {
         V1CamelFileBindingModel fileModel = new V1CamelFileBindingModel();
         fileModel.setDirectory(DIRECTORY);
 
@@ -154,12 +87,12 @@ public class V1CamelFileConsumerBindingModelTest extends V1BaseCamelModelTest<V1
             .setStartingDirectoryMustExist(STARTING_DIRECTORY_MUST_EXIST)
             .setDirectoryMustExist(DIRECTORY_MUST_EXIST)
             .setDoneFileName(DONE_FILE_NAME);
-        fileModel.setConsumer(consumer);
-
-        return fileModel;
+        return fileModel.setConsumer(consumer);
     }
 
-    private void assertConsumerModel(CamelFileConsumerBindingModel consumer) {
+    @Override
+    protected void createModelAssertions(V1CamelFileBindingModel model) {
+        CamelFileConsumerBindingModel consumer = model.getConsumer();
         assertEquals(RECURSIVE, consumer.isRecursive());
         assertEquals(DELETE, consumer.isDelete());
         assertEquals(NOOP, consumer.isNoop());
@@ -177,4 +110,10 @@ public class V1CamelFileConsumerBindingModelTest extends V1BaseCamelModelTest<V1
         assertEquals(DIRECTORY_MUST_EXIST, consumer.isDirectoryMustExist());
         assertEquals(DONE_FILE_NAME, consumer.getDoneFileName());
     }
+
+    @Override
+    protected String createEndpointUri() {
+        return CAMEL_URI;
+    }
+
 }

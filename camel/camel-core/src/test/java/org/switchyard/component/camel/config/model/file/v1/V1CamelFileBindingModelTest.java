@@ -21,25 +21,18 @@
 package org.switchyard.component.camel.config.model.file.v1;
 
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
-
-import java.io.File;
 
 import org.apache.camel.component.file.FileEndpoint;
-import org.custommonkey.xmlunit.Diff;
-import org.custommonkey.xmlunit.XMLUnit;
-import org.junit.Test;
-import org.switchyard.component.camel.config.model.file.CamelFileBindingModel;
-import org.switchyard.component.camel.config.model.v1.V1BaseCamelModelTest;
-import org.switchyard.component.camel.config.model.v1.V1CamelBindingModel;
-import org.switchyard.config.model.Validation;
+import org.switchyard.component.camel.config.test.v1.V1BaseCamelServiceBindingModelTest;
+import org.switchyard.component.camel.core.model.file.v1.V1CamelFileBindingModel;
+import org.switchyard.component.camel.core.model.v1.V1CamelBindingModel;
 
 /**
  * Test for {@link V1CamelBindingModel}.
  * 
  * @author Daniel Bevenius
  */
-public class V1CamelFileBindingModelTest extends V1BaseCamelModelTest<V1CamelFileBindingModel> {
+public class V1CamelFileBindingModelTest extends V1BaseCamelServiceBindingModelTest<V1CamelFileBindingModel, FileEndpoint> {
 
     private static final String CAMEL_XML = "switchyard-file-binding-beans.xml";
     private static final String DIRECTORY = "/input/directory";
@@ -51,40 +44,22 @@ public class V1CamelFileBindingModelTest extends V1BaseCamelModelTest<V1CamelFil
     private static final String CAMEL_URI = "file:///input/directory?autoCreate=false&" +
         "bufferSize=2048&charset=cp1250&fileName=fname&flatten=true";
 
-    @Test
-    public void validateCamelBindingModelWithBeanElement() throws Exception {
-        final V1CamelFileBindingModel bindingModel = getFirstCamelBinding(CAMEL_XML);
-        final Validation validateModel = bindingModel.validateModel();
-
-        validateModel.assertValid();
-        assertTrue(validateModel.isValid());
-        assertEquals(DIRECTORY, bindingModel.getDirectory());
-        assertEquals(AUTO_CREATE, bindingModel.isAutoCreate());
-        assertEquals(BUFFER_SIZE, bindingModel.getBufferSize());
-        assertEquals(FILE_NAME, bindingModel.getFileName());
-        assertEquals(FLATTEN, bindingModel.isFlatten());
-        assertEquals(CHARSET, bindingModel.getCharset());
+    public V1CamelFileBindingModelTest() {
+        super(FileEndpoint.class, CAMEL_XML);
     }
 
-    @Test
-    public void compareWriteConfig() throws Exception {
-        String refXml = getFirstCamelBinding(CAMEL_XML).toString();
-        String newXml = createModel().toString();
-        XMLUnit.setIgnoreWhitespace(true);
-        Diff diff = XMLUnit.compareXML(refXml, newXml);
-        assertTrue(diff.toString(), diff.similar());
+    @Override
+    protected void createModelAssertions(V1CamelFileBindingModel model) {
+        assertEquals(DIRECTORY, model.getDirectory());
+        assertEquals(AUTO_CREATE, model.isAutoCreate());
+        assertEquals(BUFFER_SIZE, model.getBufferSize());
+        assertEquals(FILE_NAME, model.getFileName());
+        assertEquals(FLATTEN, model.isFlatten());
+        assertEquals(CHARSET, model.getCharset());
     }
 
-    @Test
-    public void testCamelEndpoint()  throws Exception {
-        CamelFileBindingModel model = getFirstCamelBinding(CAMEL_XML);
-
-        FileEndpoint endpoint = getEndpoint(model, FileEndpoint.class);
-        assertEquals(DIRECTORY.replace("/", File.separator), endpoint.getConfiguration().getDirectory());
-        assertEquals(CAMEL_URI, endpoint.getEndpointUri().toString());
-    }
-
-    private V1CamelFileBindingModel createModel() {
+    @Override
+    protected V1CamelFileBindingModel createTestModel() {
         return (V1CamelFileBindingModel) new V1CamelFileBindingModel()
             .setDirectory(DIRECTORY)
             .setAutoCreate(AUTO_CREATE)
@@ -92,6 +67,11 @@ public class V1CamelFileBindingModelTest extends V1BaseCamelModelTest<V1CamelFil
             .setFileName(FILE_NAME)
             .setFlatten(FLATTEN)
             .setCharset(CHARSET);
+    }
+
+    @Override
+    protected String createEndpointUri() {
+        return CAMEL_URI;
     }
 
 }

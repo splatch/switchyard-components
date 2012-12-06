@@ -1,0 +1,114 @@
+/*
+ * JBoss, Home of Professional Open Source Copyright 2009, Red Hat Middleware
+ * LLC, and individual contributors by the @authors tag. See the copyright.txt
+ * in the distribution for a full listing of individual contributors.
+ * 
+ * This is free software; you can redistribute it and/or modify it under the
+ * terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ * 
+ * This software is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this software; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA, or see the FSF
+ * site: http://www.fsf.org.
+ */
+package org.switchyard.component.camel.ftp.model.v1;
+
+import static junit.framework.Assert.assertEquals;
+
+import org.apache.camel.component.file.remote.FtpEndpoint;
+import org.switchyard.component.camel.common.model.remote.CamelRemoteFileBindingModel.PathSeparator;
+import org.switchyard.component.camel.config.test.v1.V1BaseCamelServiceBindingModelTest;
+
+/**
+ * Test for {@link V1CamelFtpBindingModel}.
+ * 
+ * @author Lukasz Dywicki
+ */
+@SuppressWarnings("rawtypes")
+public class V1CamelFtpBindingModelTest extends V1BaseCamelServiceBindingModelTest<V1CamelFtpBindingModel, FtpEndpoint> {
+
+    private static final String CAMEL_XML = "/v1/switchyard-ftp-binding-beans.xml";
+
+    private static final String DIRECTORY = "test";
+    private static final String HOST = "localhost";
+    private static final Integer PORT = 203;
+    private static final String USERNAME = "camel";
+    private static final String PASSWORD = "secret";
+    private static final Boolean BINARY = true;
+    private static final Integer CONNECT_TIMEOUT = 10;
+    private static final Boolean DISCONNECT = true;
+    private static final Integer MAXIMUM_RECONNECT_ATTEMPTS = 10;
+    private static final Integer RECONNECT_DELAY = 10;
+    private static final PathSeparator SEPARATOR = PathSeparator.UNIX;
+    private static final Boolean STEPWISE = true;
+    private static final Boolean THROW_EXCEPTION_ON_CONNECT_FAIL = true;
+    private static final Integer TIMEOUT = 10;
+    private static final Integer SO_TIMEOUT = 10;
+    private static final Boolean PASSIVE_MODE = true;
+    private static final String SITE_COMMAND = "PWD";
+
+    private static final String CAMEL_URI = "ftp://camel:secret@localhost:203/test?binary=true&" +
+        "connectTimeout=10&disconnect=true&maximumReconnectAttempts=10&reconnectDelay=10&" +
+        "separator=UNIX&stepwise=true&throwExceptionOnConnectFailed=true&passiveMode=true&" +
+        "timeout=10&soTimeout=10&siteCommand=PWD";
+
+    public V1CamelFtpBindingModelTest() {
+        super(FtpEndpoint.class, CAMEL_XML);
+    }
+
+    @Override
+    protected V1CamelFtpBindingModel createTestModel() {
+        return (V1CamelFtpBindingModel) new V1CamelFtpBindingModel()
+            .setPassiveMode(PASSIVE_MODE)
+            .setTimeout(TIMEOUT)
+            .setSoTimeout(SO_TIMEOUT)
+            .setSiteCommand(SITE_COMMAND)
+            .setDirectory(DIRECTORY)
+            .setHost(HOST)
+            .setPort(PORT)
+            .setUsername(USERNAME)
+            .setPassword(PASSWORD)
+            .setBinary(BINARY)
+            .setConnectionTimeout(CONNECT_TIMEOUT)
+            .setThrowExceptionOnConnectFailed(THROW_EXCEPTION_ON_CONNECT_FAIL)
+            .setStepwise(STEPWISE)
+            .setSeparator(SEPARATOR.name())
+            .setReconnectDelay(RECONNECT_DELAY)
+            .setMaximumReconnectAttempts(MAXIMUM_RECONNECT_ATTEMPTS)
+            .setDisconnect(DISCONNECT);
+    }
+
+    @Override
+    protected void createModelAssertions(V1CamelFtpBindingModel model) {
+        assertEquals(PASSIVE_MODE, model.isPassiveMode());
+        assertEquals(TIMEOUT, model.getTimeout());
+        assertEquals(SO_TIMEOUT, model.getSoTimeout());
+        assertEquals(SITE_COMMAND, model.getSiteCommand());
+        assertEquals(DIRECTORY, model.getDirectory());
+        assertEquals(HOST, model.getHost());
+        assertEquals(PORT, model.getPort());
+        assertEquals(USERNAME, model.getUsername());
+        assertEquals(PASSWORD, model.getPassword());
+        assertEquals(BINARY, model.isBinary());
+        assertEquals(CONNECT_TIMEOUT, model.getConnectTimeout());
+        assertEquals(THROW_EXCEPTION_ON_CONNECT_FAIL, model.isThrowExceptionOnConnectFailed());
+        assertEquals(STEPWISE, model.isStepwise());
+        assertEquals(SEPARATOR, model.getSeparator());
+        assertEquals(RECONNECT_DELAY, model.getReconnectDelay());
+        assertEquals(MAXIMUM_RECONNECT_ATTEMPTS, model.getMaximumReconnectAttempts());
+        assertEquals(DISCONNECT, model.getDisconnect());
+    }
+
+    @Override
+    protected String createEndpointUri() {
+        return CAMEL_URI;
+    }
+
+}
