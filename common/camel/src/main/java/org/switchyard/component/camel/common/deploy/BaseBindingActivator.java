@@ -52,7 +52,7 @@ public class BaseBindingActivator extends BaseActivator {
 
     @Override
     public ServiceHandler activateBinding(QName serviceName, BindingModel config) {
-        CamelBindingModel binding = (CamelBindingModel)config;
+        CamelBindingModel binding = (CamelBindingModel) config;
         binding.setEnvironment(_environment);
 
         if (binding.isServiceBinding()) {

@@ -18,8 +18,6 @@
  */
 package org.switchyard.component.camel.common.model.file.v1;
 
-import javax.xml.namespace.QName;
-
 import org.switchyard.component.camel.common.model.file.GenericFileConsumerBindingModel;
 import org.switchyard.component.camel.common.model.v1.V1CamelScheduledBatchPollConsumer;
 import org.switchyard.config.Configuration;
@@ -144,12 +142,13 @@ public class V1GenericFileConsumerBindingModel extends V1CamelScheduledBatchPoll
     public static final String DONE_FILE_NAME = "doneFileName";
 
     /**
-     * Creates generic file binding model bound to given namespace.
-     *  
-     * @param qname Namespace to bound.
+     * Creates model bound to given namespace.
+     * 
+     * @param name Name of element.
+     * @param namespace Namespace to bound.
      */
-    public V1GenericFileConsumerBindingModel(QName qname) {
-        super(qname);
+    public V1GenericFileConsumerBindingModel(String name, String namespace) {
+        super(name, namespace);
 
         setModelChildrenOrder(RECURSIVE,
                 DELETE, NOOP, PRE_MOVE, MOVE, MOVE_FAILED, INCLUDE, EXCLUDE,

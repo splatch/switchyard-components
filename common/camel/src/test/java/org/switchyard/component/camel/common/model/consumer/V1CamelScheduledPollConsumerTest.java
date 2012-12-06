@@ -22,8 +22,6 @@ import static junit.framework.Assert.assertEquals;
 
 import java.util.concurrent.TimeUnit;
 
-import javax.xml.namespace.QName;
-
 import org.junit.Test;
 import org.switchyard.component.camel.common.model.v1.V1CamelScheduledPollConsumer;
 
@@ -53,7 +51,7 @@ public class V1CamelScheduledPollConsumerTest {
     }
 
     private CamelScheduledPollConsumer createModel() {
-        return new V1CamelScheduledPollConsumer(new QName("test"))
+        return new V1CamelScheduledPollConsumer("test", "test")
             .setDelay(DELAY)
             .setInitialDelay(INITIAL_DELAY)
             .setTimeUnit(TIME_UNIT.name())

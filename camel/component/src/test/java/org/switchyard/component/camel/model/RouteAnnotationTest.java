@@ -1,14 +1,17 @@
 package org.switchyard.component.camel.model;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.switchyard.component.camel.scanner.RouteScanner;
 import org.switchyard.config.model.ScannerInput;
 import org.switchyard.config.model.composite.ComponentModel;
 import org.switchyard.config.model.composite.ComponentServiceModel;
@@ -50,7 +53,8 @@ public class RouteAnnotationTest {
             }
         }
 
-        Assert.assertTrue("The custom name service must be found.", customServiceNameFound);
-        Assert.assertFalse("The empty name service should have the name of the interface.", emptyServiceNameFound);
+        assertTrue("The custom name service must be found.", customServiceNameFound);
+        assertFalse("The empty name service should have the name of the interface.", emptyServiceNameFound);
     }
+
 }

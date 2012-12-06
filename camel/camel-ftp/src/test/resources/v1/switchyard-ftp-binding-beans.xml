@@ -14,25 +14,24 @@
     MA 02110-1301, USA. -->
 <switchyard xmlns="urn:switchyard-config:switchyard:1.0"
     xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912"
-    xmlns:common="urn:switchyard-component-camel-common:config:1.0"
     xmlns:ftp="urn:switchyard-component-camel-ftp:config:1.0">
 
     <sca:composite name="camelTest" targetNamespace="urn:camel-core:test:1.0">
         <sca:service name="camelTest" promote="SimpleCamelService">
             <ftp:binding.ftp>
-                <common:directory>test</common:directory>
-                <common:host>localhost</common:host>
-                <common:port>203</common:port>
-                <common:username>camel</common:username>
-                <common:password>secret</common:password>
-                <common:binary>true</common:binary>
-                <common:connectTimeout>10</common:connectTimeout>
-                <common:disconnect>true</common:disconnect>
-                <common:maximumReconnectAttempts>10</common:maximumReconnectAttempts>
-                <common:reconnectDelay>10</common:reconnectDelay>
-                <common:separator>UNIX</common:separator>
-                <common:stepwise>true</common:stepwise>
-                <common:throwExceptionOnConnectFailed>true</common:throwExceptionOnConnectFailed>
+                <ftp:directory>test</ftp:directory>
+                <ftp:host>localhost</ftp:host>
+                <ftp:port>203</ftp:port>
+                <ftp:username>camel</ftp:username>
+                <ftp:password>secret</ftp:password>
+                <ftp:binary>true</ftp:binary>
+                <ftp:connectTimeout>10</ftp:connectTimeout>
+                <ftp:disconnect>true</ftp:disconnect>
+                <ftp:maximumReconnectAttempts>10</ftp:maximumReconnectAttempts>
+                <ftp:reconnectDelay>10</ftp:reconnectDelay>
+                <ftp:separator>UNIX</ftp:separator>
+                <ftp:stepwise>true</ftp:stepwise>
+                <ftp:throwExceptionOnConnectFailed>true</ftp:throwExceptionOnConnectFailed>
                 <ftp:passiveMode>true</ftp:passiveMode>
                 <ftp:timeout>10</ftp:timeout>
                 <ftp:soTimeout>10</ftp:soTimeout>

@@ -16,7 +16,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
-package org.switchyard.component.camel;
+package org.switchyard.component.camel.scanner;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.lang.reflect.Modifier;
@@ -25,12 +30,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.switchyard.common.type.Classes;
 import org.switchyard.component.camel.model.CamelComponentImplementationModel;
-import org.switchyard.component.camel.model.RouteScanner;
+import org.switchyard.component.camel.scanner.RouteScanner;
 import org.switchyard.config.model.ScannerInput;
 import org.switchyard.config.model.composite.ComponentImplementationModel;
 import org.switchyard.config.model.composite.ComponentModel;
@@ -44,51 +48,50 @@ import org.switchyard.config.model.switchyard.SwitchYardModel;
  * scanner implementations can reuse the same code.
  */
 public class RouteScannerTest {
-    
+
     private SwitchYardModel _scannedModel;
     private RouteScanner _scanner;
     private List<URL> _scannedURLs;
-    
+
     @Before
     public void setUp() throws Exception {
         _scanner = new RouteScanner();
         _scannedURLs = new ArrayList<URL>();
         _scannedURLs.add(new File("./target/test-classes").toURI().toURL());
-
     }
 
     @Test
     public void componentImplementationCreated() throws Exception {
-        scan(new URL(new File("./target/test-classes").toURI().toURL(), "#org/switchyard/component/camel/config/model"));
+        scan(new URL(new File("./target/test-classes").toURI().toURL(), "#org/switchyard/component/camel/scanner"));
         List<ComponentModel> components = _scannedModel.getComposite().getComponents();
         for(ComponentModel component : components) {
             System.out.println("RouteScanner found component: " + component.getName());
             // Verify component details
-            Assert.assertEquals(SingleRouteService.class.getSimpleName(), component.getName());
-            Assert.assertTrue(component.getServices().size() == 1);
+            assertEquals(SingleRouteService.class.getSimpleName(), component.getName());
+            assertTrue(component.getServices().size() == 1);
             ComponentImplementationModel implementation = component.getImplementation();
-            Assert.assertTrue(implementation instanceof CamelComponentImplementationModel);
+            assertTrue(implementation instanceof CamelComponentImplementationModel);
             checkCamelImplementation((CamelComponentImplementationModel)implementation);
         }
     }
-    
+
     // verify an empty model is created
     @Test
     public void testEmptyScan() throws Exception {
         scan();
-        Assert.assertNull("Composite element should not be created if no components were found.",
-                _scannedModel.getComposite());
+        assertNull("Composite element should not be created if no components were found.",
+            _scannedModel.getComposite());
     }
 
     private void checkCamelImplementation(CamelComponentImplementationModel model) throws Exception {
         // Load the class
         Class<?> routeClass = Classes.forName(model.getJavaClass(), getClass());
         // make sure the class itself is valid
-        Assert.assertFalse(routeClass.isInterface());
-        Assert.assertFalse(Modifier.isAbstract(routeClass.getModifiers()));
+        assertFalse(routeClass.isInterface());
+        assertFalse(Modifier.isAbstract(routeClass.getModifiers()));
         
     }
-    
+
     // Takes a list of URLs to scan *instead* of what's defined in @Before.
     private void scan(URL ... urls) throws Exception {
         _scannedURLs.clear();
@@ -98,4 +101,5 @@ public class RouteScannerTest {
         ScannerInput<SwitchYardModel> input = new ScannerInput<SwitchYardModel>().setURLs(_scannedURLs);
         _scannedModel = _scanner.scan(input).getModel();
     }
+
 }

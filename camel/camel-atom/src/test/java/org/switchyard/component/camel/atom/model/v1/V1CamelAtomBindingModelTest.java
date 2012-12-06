@@ -26,6 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.apache.camel.component.feed.FeedEndpoint;
+import org.switchyard.component.camel.atom.model.Constants;
 import org.switchyard.component.camel.common.model.consumer.CamelScheduledPollConsumer;
 import org.switchyard.component.camel.common.model.v1.V1CamelScheduledPollConsumer;
 import org.switchyard.component.camel.config.test.v1.V1BaseCamelServiceBindingModelTest;
@@ -80,12 +81,11 @@ public class V1CamelAtomBindingModelTest extends V1BaseCamelServiceBindingModelT
             .setFeedHeader(FEED_HEADER)
             .setSortEntries(SORTED);
 
-        CamelScheduledPollConsumer consumer = new V1CamelScheduledPollConsumer(V1CamelAtomBindingModel.CONSUME)
-            .setDelay(15000)
+        CamelScheduledPollConsumer consumer = new V1CamelScheduledPollConsumer(V1CamelAtomBindingModel.CONSUME, Constants.ATOM_NAMESPACE_V1)
             .setInitialDelay(20000)
+            .setDelay(15000)
             .setUseFixedDelay(true);
-        abm.setConsumer(consumer);
-        return abm;
+        return abm.setConsumer(consumer);
     }
 
     @Override

@@ -20,8 +20,6 @@
  */
 package org.switchyard.component.camel.common.model.remote.v1;
 
-import javax.xml.namespace.QName;
-
 import org.switchyard.component.camel.common.model.file.v1.V1GenericFileConsumerBindingModel;
 import org.switchyard.component.camel.common.model.remote.CamelRemoteFileConsumerBindingModel;
 import org.switchyard.config.Configuration;
@@ -46,10 +44,13 @@ public class V1CamelRemoteFileConsumerBindingModel extends V1GenericFileConsumer
     }
 
     /**
-     * Creates new remote file consumer binding.
+     * Creates model bound to given namespace.
+     * 
+     * @param name Name of element.
+     * @param namespace Namespace to bound.
      */
-    public V1CamelRemoteFileConsumerBindingModel() {
-        super(new QName(V1CamelRemoteFileBindingModel.CONSUME));
+    public V1CamelRemoteFileConsumerBindingModel(String name, String namespace) {
+        super(name, namespace);
     }
 
 }

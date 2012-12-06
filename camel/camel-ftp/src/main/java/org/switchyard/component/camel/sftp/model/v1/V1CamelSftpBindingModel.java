@@ -60,6 +60,9 @@ public class V1CamelSftpBindingModel extends V1CamelRemoteFileBindingModel
      */
     public V1CamelSftpBindingModel() {
         super(SFTP, FTP_NAMESPACE_V1);
+
+        setModelChildrenOrder(KNOWN_HOSTS_FILE, PRIVATE_KEY_FILE, PRIVATE_KEY_FILE_PASSPHRASE,
+            PRODUCE, CONSUME);
     }
 
     @Override

@@ -14,31 +14,30 @@
     MA 02110-1301, USA. -->
 <switchyard xmlns="urn:switchyard-config:switchyard:1.0"
     xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912"
-    xmlns:amqp="urn:switchyard-component-camel-amqp:config:1.0"
-    xmlns:jms="urn:switchyard-component-camel-jms:config:1.0">
+    xmlns:amqp="urn:switchyard-component-camel-amqp:config:1.0">
 
     <sca:composite name="camelTest" targetNamespace="urn:camel-core:test:1.0">
         <sca:service name="camelTest" promote="SimpleCamelService">
             <amqp:binding.amqp>
-                <jms:topic>esb_in_topic</jms:topic>
-                <jms:connectionFactory>connFactory</jms:connectionFactory>
-                <jms:username>camel</jms:username>
-                <jms:password>isMyFriend</jms:password>
-                <jms:clientId>esb_in</jms:clientId>
-                <jms:durableSubscriptionName>esb_in_sub</jms:durableSubscriptionName>
-                <jms:concurrentConsumers>5</jms:concurrentConsumers>
-                <jms:maxConcurrentConsumers>15</jms:maxConcurrentConsumers>
-                <jms:disableReplyTo>true</jms:disableReplyTo>
-                <jms:preserveMessageQos>true</jms:preserveMessageQos>
-                <jms:deliveryPersistent>false</jms:deliveryPersistent>
-                <jms:priority>9</jms:priority>
-                <jms:explicitQosEnabled>true</jms:explicitQosEnabled>
-                <jms:replyTo>esb_out</jms:replyTo>
-                <jms:replyToType>Shared</jms:replyToType>
-                <jms:requestTimeout>300</jms:requestTimeout>
-                <jms:selector>DEST='ESB'</jms:selector>
-                <jms:timeToLive>3600</jms:timeToLive>
-                <jms:transacted>true</jms:transacted>
+                <amqp:topic>esb_in_topic</amqp:topic>
+                <amqp:connectionFactory>connFactory</amqp:connectionFactory>
+                <amqp:username>camel</amqp:username>
+                <amqp:password>isMyFriend</amqp:password>
+                <amqp:clientId>esb_in</amqp:clientId>
+                <amqp:durableSubscriptionName>esb_in_sub</amqp:durableSubscriptionName>
+                <amqp:concurrentConsumers>5</amqp:concurrentConsumers>
+                <amqp:maxConcurrentConsumers>15</amqp:maxConcurrentConsumers>
+                <amqp:disableReplyTo>true</amqp:disableReplyTo>
+                <amqp:preserveMessageQos>true</amqp:preserveMessageQos>
+                <amqp:deliveryPersistent>false</amqp:deliveryPersistent>
+                <amqp:priority>9</amqp:priority>
+                <amqp:explicitQosEnabled>true</amqp:explicitQosEnabled>
+                <amqp:replyTo>esb_out</amqp:replyTo>
+                <amqp:replyToType>Shared</amqp:replyToType>
+                <amqp:requestTimeout>300</amqp:requestTimeout>
+                <amqp:selector>DEST='ESB'</amqp:selector>
+                <amqp:timeToLive>3600</amqp:timeToLive>
+                <amqp:transacted>true</amqp:transacted>
             </amqp:binding.amqp>
         </sca:service>
     </sca:composite>

@@ -38,6 +38,8 @@ import org.switchyard.config.model.Model;
 import org.switchyard.config.model.composite.v1.V1ComponentImplementationModel;
 import org.switchyard.exception.SwitchYardException;
 
+import static org.switchyard.component.camel.model.Constants.COMPONENT_NAMESPACE_V1;
+
 /**
  * Version 1 implementation.
  * 
@@ -60,7 +62,7 @@ public class V1CamelImplementationModel extends V1ComponentImplementationModel
      * Create a new CamelImplementationModel.
      */
     public V1CamelImplementationModel() {
-        super(CAMEL, DEFAULT_NAMESPACE);
+        super(CAMEL, COMPONENT_NAMESPACE_V1);
     }
 
     /**
@@ -128,7 +130,7 @@ public class V1CamelImplementationModel extends V1ComponentImplementationModel
     public V1CamelImplementationModel setJavaClass(String className) {
         Configuration classConfig = getModelConfiguration().getFirstChild(JAVA);
         if (classConfig == null) {
-            NameValueModel model = new NameValueModel(JAVA);
+            NameValueModel model = new NameValueModel(getNamespaceURI(), JAVA);
             model.getModelConfiguration().setAttribute(CLASS, className);
             setChildModel(model);
         } else {
@@ -147,7 +149,7 @@ public class V1CamelImplementationModel extends V1ComponentImplementationModel
     public CamelComponentImplementationModel setXMLPath(String path) {
         Configuration pathConfig = getModelConfiguration().getFirstChild(XML);
         if (pathConfig == null) {
-            NameValueModel model = new NameValueModel(XML);
+            NameValueModel model = new NameValueModel(getNamespaceURI(), XML);
             model.getModelConfiguration().setAttribute(PATH, path);
             setChildModel(model);
         } else {

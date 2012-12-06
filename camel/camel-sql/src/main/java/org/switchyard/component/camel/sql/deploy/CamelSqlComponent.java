@@ -6,7 +6,7 @@ import org.switchyard.component.camel.sql.model.v1.V1CamelSqlBindingModel;
 public class CamelSqlComponent extends BaseBindingComponent {
 
     public CamelSqlComponent() {
-        super("CamelSql", V1CamelSqlBindingModel.SQL);
+        super("CamelSqlComponent", V1CamelSqlBindingModel.SQL);
     }
 
 }

@@ -20,17 +20,20 @@ MA  02110-1301, USA.
 <schema xmlns="http://www.w3.org/2001/XMLSchema"
     targetNamespace="urn:switchyard-component-camel-amqp:config:1.0"
     xmlns:tns="urn:switchyard-component-camel-amqp:config:1.0"
-    xmlns:jms="urn:switchyard-component-camel-jms:config:1.0"
     xmlns:switchyard="urn:switchyard-config:switchyard:1.0"
     elementFormDefault="qualified">
 
     <import namespace="urn:switchyard-config:switchyard:1.0"/>
-    <import namespace="urn:switchyard-component-camel-jms:config:1.0"/>
+    <include schemaLocation="camel-common-v1.xsd" />
 
     <element name="binding.amqp" type="tns:CamelAmqpBindingType" substitutionGroup="switchyard:binding.switchyard" />
     <complexType name="CamelAmqpBindingType">
         <complexContent>
-            <extension base="jms:CamelJmsBindingType" />
+            <extension base="tns:BaseCamelBinding">
+                <sequence>
+                    <group ref="tns:JmsBindingType" minOccurs="0" maxOccurs="1" />
+                </sequence>
+            </extension>
         </complexContent>
     </complexType>
 

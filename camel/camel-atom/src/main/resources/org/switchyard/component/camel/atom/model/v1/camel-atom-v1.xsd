@@ -20,17 +20,16 @@ MA  02110-1301, USA.
 <schema xmlns="http://www.w3.org/2001/XMLSchema"
      targetNamespace="urn:switchyard-component-camel-atom:config:1.0"
      xmlns:tns="urn:switchyard-component-camel-atom:config:1.0"
-     xmlns:common="urn:switchyard-component-camel-common:config:1.0"
      xmlns:switchyard="urn:switchyard-config:switchyard:1.0"
      elementFormDefault="qualified">
 
     <import namespace="urn:switchyard-config:switchyard:1.0"/>
-    <import namespace="urn:switchyard-component-camel-common:config:1.0"/>
+    <include schemaLocation="camel-common-v1.xsd" />
 
     <element name="binding.atom" type="tns:CamelAtomBindingType" substitutionGroup="switchyard:binding.switchyard"/>
     <complexType name="CamelAtomBindingType">
         <complexContent>
-            <extension base="common:BaseCamelBinding">
+            <extension base="tns:BaseCamelBinding">
                 <sequence>
                     <element name="feedURI" type="anyURI"/>
                     <element name="splitEntries" type="boolean" minOccurs="0" maxOccurs="1"/>
@@ -39,10 +38,16 @@ MA  02110-1301, USA.
                     <element name="throttleEntries" type="boolean" minOccurs="0" maxOccurs="1"/>
                     <element name="feedHeader" type="boolean" minOccurs="0" maxOccurs="1"/>
                     <element name="sortEntries" type="boolean" minOccurs="0" maxOccurs="1"/>
-                    <element name="consume" type="common:ScheduledPollConsumerType" minOccurs="0" maxOccurs="1" />
+                    <element name="consume" type="tns:AtomScheduledPollConsumerType" minOccurs="0" maxOccurs="1"/>
                 </sequence>
             </extension>
         </complexContent>
+    </complexType>
+
+    <complexType name="AtomScheduledPollConsumerType">
+        <sequence>
+            <group ref="tns:ScheduledPollConsumerType" minOccurs="0" maxOccurs="1"/>
+        </sequence>
     </complexType>
 
 </schema>

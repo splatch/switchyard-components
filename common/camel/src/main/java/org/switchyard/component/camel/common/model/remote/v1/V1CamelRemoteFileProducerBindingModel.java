@@ -20,8 +20,6 @@
  */
 package org.switchyard.component.camel.common.model.remote.v1;
 
-import javax.xml.namespace.QName;
-
 import org.switchyard.component.camel.common.model.file.v1.V1GenericFileProducerBindingModel;
 import org.switchyard.component.camel.common.model.remote.CamelRemoteFileProducerBindingModel;
 import org.switchyard.config.Configuration;
@@ -36,12 +34,13 @@ public class V1CamelRemoteFileProducerBindingModel extends V1GenericFileProducer
     implements CamelRemoteFileProducerBindingModel {
 
     /**
-     * Create a binding model bound to given namespace.
+     * Creates model bound to given namespace.
      * 
-     * @param qname Namespace.
+     * @param name Name of element.
+     * @param namespace Namespace to bound.
      */
-    public V1CamelRemoteFileProducerBindingModel(QName qname) {
-        super(qname);
+    public V1CamelRemoteFileProducerBindingModel(String name, String namespace) {
+        super(name, namespace);
     }
 
     /**

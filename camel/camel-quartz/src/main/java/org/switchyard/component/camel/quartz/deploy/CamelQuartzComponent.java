@@ -5,8 +5,8 @@ import org.switchyard.component.camel.quartz.model.v1.V1CamelQuartzBindingModel;
 
 public class CamelQuartzComponent extends BaseBindingComponent {
 
-    protected CamelQuartzComponent(String[] types) {
-        super(V1CamelQuartzBindingModel.QUARTZ);
+    public CamelQuartzComponent() {
+        super("CamelQuartzComponent", V1CamelQuartzBindingModel.QUARTZ);
     }
 
 }

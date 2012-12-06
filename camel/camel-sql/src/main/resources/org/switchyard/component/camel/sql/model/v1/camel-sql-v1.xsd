@@ -20,17 +20,16 @@ MA  02110-1301, USA.
 <schema xmlns="http://www.w3.org/2001/XMLSchema"
     targetNamespace="urn:switchyard-component-camel-sql:config:1.0"
     xmlns:tns="urn:switchyard-component-camel-sql:config:1.0"
-    xmlns:common="urn:switchyard-component-camel-common:config:1.0"
     xmlns:switchyard="urn:switchyard-config:switchyard:1.0"
     elementFormDefault="qualified">
 
     <import namespace="urn:switchyard-config:switchyard:1.0"/>
-    <import namespace="urn:switchyard-component-camel-common:config:1.0"/>
+    <include schemaLocation="camel-common-v1.xsd" />
 
     <element name="binding.sql" type="tns:CamelSqlBindingType" substitutionGroup="switchyard:binding.switchyard"/>
     <complexType name="CamelSqlBindingType">
         <complexContent>
-            <extension base="common:BaseCamelBinding">
+            <extension base="tns:BaseCamelBinding">
                 <sequence>
                     <element name="query" type="string" />
                     <element name="dataSourceRef" type="string" />

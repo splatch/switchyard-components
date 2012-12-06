@@ -18,8 +18,6 @@
  */
 package org.switchyard.component.camel.common.model.v1;
 
-import javax.xml.namespace.QName;
-
 import org.switchyard.component.camel.common.model.consumer.CamelScheduledBatchPollConsumer;
 import org.switchyard.config.Configuration;
 import org.switchyard.config.model.Descriptor;
@@ -38,12 +36,13 @@ public class V1CamelScheduledBatchPollConsumer extends V1CamelScheduledPollConsu
     private static final String MAX_MESSAGES_PER_POLL = "maxMessagesPerPoll";
 
     /**
-     * Constructor.
+     * Creates model bound to given namespace.
      * 
-     * @param qname Namespace to bound.
+     * @param name Name of element.
+     * @param namespace Namespace to bound.
      */
-    public V1CamelScheduledBatchPollConsumer(QName qname) {
-        super(qname);
+    public V1CamelScheduledBatchPollConsumer(String name, String namespace) {
+        super(name, namespace);
 
         setModelChildrenOrder(MAX_MESSAGES_PER_POLL);
     }

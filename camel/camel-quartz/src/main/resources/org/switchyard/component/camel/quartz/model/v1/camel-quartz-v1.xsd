@@ -25,12 +25,12 @@ MA  02110-1301, USA.
     elementFormDefault="qualified">
 
     <import namespace="urn:switchyard-config:switchyard:1.0"/>
-    <import namespace="urn:switchyard-component-camel-common:config:1.0"/>
+    <include schemaLocation="camel-common-v1.xsd" />
 
     <element name="binding.quartz" type="tns:CamelQuartzBindingType" substitutionGroup="switchyard:binding.switchyard"/>
     <complexType name="CamelQuartzBindingType">
         <complexContent>
-            <extension base="common:BaseCamelBinding">
+            <extension base="tns:BaseCamelBinding">
                 <sequence>
                     <element name="name" type="string" />
                     <element name="cron" type="string" />

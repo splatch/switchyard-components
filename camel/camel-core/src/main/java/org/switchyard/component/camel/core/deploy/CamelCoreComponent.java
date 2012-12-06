@@ -11,7 +11,7 @@ import org.switchyard.component.camel.core.model.v1.V1CamelBindingModel;
 public class CamelCoreComponent extends BaseBindingComponent {
 
     public CamelCoreComponent() {
-        super("CamelCore",
+        super("CamelCoreComponent",
             V1CamelBindingModel.URI,
             V1CamelDirectBindingModel.DIRECT,
             V1CamelFileBindingModel.FILE,

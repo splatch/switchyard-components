@@ -14,14 +14,13 @@
     MA 02110-1301, USA. -->
 <switchyard xmlns="urn:switchyard-config:switchyard:1.0"
     xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912"
-    xmlns:common="urn:switchyard-component-camel-common:config:1.0"
     xmlns:ftp="urn:switchyard-component-camel-ftp:config:1.0">
 
     <sca:composite name="camelTest" targetNamespace="urn:camel-core:test:1.0">
         <sca:service name="camelTest" promote="SimpleCamelService">
             <ftp:binding.ftps>
-                <common:directory>test</common:directory>
-                <common:host>localhost</common:host>
+                <ftp:directory>test</ftp:directory>
+                <ftp:host>localhost</ftp:host>
                 <ftp:isImplicit>false</ftp:isImplicit>
             </ftp:binding.ftps>
         </sca:service>

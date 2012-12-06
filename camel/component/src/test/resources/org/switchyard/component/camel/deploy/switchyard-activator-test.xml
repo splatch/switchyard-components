@@ -19,10 +19,10 @@
 
     <sca:composite name="SimpleCamelService" targetNamespace="urn:camel-core:test:1.0">
         <sca:service name="SimpleCamelService" promote="ComponentName/SimpleCamelService">
-            <core:binding.camel configURI="direct://input"/>
-            <core:binding.camel configURI="direct://input2">
+            <core:binding.uri configURI="direct://input"/>
+            <core:binding.uri configURI="direct://input2">
                 <operationSelector operationName="print"/>
-            </core:binding.camel>
+            </core:binding.uri>
         </sca:service>
 
         <sca:component name="ComponentName">

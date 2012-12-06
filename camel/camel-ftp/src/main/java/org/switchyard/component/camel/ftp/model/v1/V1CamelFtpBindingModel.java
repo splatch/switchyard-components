@@ -70,7 +70,7 @@ public class V1CamelFtpBindingModel extends V1CamelRemoteFileBindingModel implem
     public V1CamelFtpBindingModel(Configuration config, Descriptor descriptor) {
         super(config, descriptor);
 
-        setModelChildrenOrder(PASSIVE_MODE, TIMEOUT, SO_TIMEOUT, SITE_COMMAND);
+        setModelChildrenOrder(PASSIVE_MODE, TIMEOUT, SO_TIMEOUT, SITE_COMMAND, PRODUCE, CONSUME);
     }
 
     /**

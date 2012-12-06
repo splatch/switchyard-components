@@ -25,13 +25,11 @@ import org.apache.camel.component.mock.MockEndpoint;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.switchyard.Exchange;
-import org.switchyard.deploy.internal.Deployment;
+import org.switchyard.component.test.mixins.cdi.CDIMixIn;
 import org.switchyard.test.Invoker;
 import org.switchyard.test.ServiceOperation;
 import org.switchyard.test.SwitchYardRunner;
 import org.switchyard.test.SwitchYardTestCaseConfig;
-import org.switchyard.test.SwitchYardTestKit;
-import org.switchyard.component.test.mixins.cdi.CDIMixIn;
 
 /**
  * Test header presence populated by CamelMessageComposer in camel messages.
@@ -50,7 +48,6 @@ public class CamelMathTest {
     private final static String MATH_SERVICE = "CamelMathService";
     private final static String MATH_SERVICE_NS = SERVICE_NAMESPACE + MATH_SERVICE;
 
-    private SwitchYardTestKit _testKit;
     private CamelContext _camelContext;
 
     @ServiceOperation(MATH_SERVICE)
@@ -98,11 +95,6 @@ public class CamelMathTest {
         invoker.operation("pow").sendInOut(10.1);
 
         unknown.assertIsSatisfied();
-    }
-
-    private CamelActivator getCamelActivator() {
-        final Deployment deployment = (Deployment) _testKit.getDeployment();
-        return (CamelActivator) deployment.findActivator("camel");
     }
 
 }

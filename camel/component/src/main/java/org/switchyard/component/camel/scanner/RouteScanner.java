@@ -16,7 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, 
  * MA  02110-1301, USA.
  */
-package org.switchyard.component.camel.model;
+package org.switchyard.component.camel.scanner;
 
 import java.io.IOException;
 import java.lang.reflect.Modifier;
@@ -26,6 +26,7 @@ import java.util.List;
 import org.switchyard.common.type.classpath.AbstractTypeFilter;
 import org.switchyard.common.type.classpath.ClasspathScanner;
 import org.switchyard.component.camel.Route;
+import org.switchyard.component.camel.model.CamelComponentImplementationModel;
 import org.switchyard.component.camel.model.v1.V1CamelImplementationModel;
 import org.switchyard.config.model.Scannable;
 import org.switchyard.config.model.Scanner;

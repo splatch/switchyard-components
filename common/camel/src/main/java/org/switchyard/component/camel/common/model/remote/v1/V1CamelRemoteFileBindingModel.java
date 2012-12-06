@@ -105,16 +105,6 @@ public abstract class V1CamelRemoteFileBindingModel extends V1GenericFileBinding
     private static final String DISCONNECT = "disconnect";
 
     /**
-     * Name of 'consume' element.
-     */
-    public static final String CONSUME = "consume";
-
-    /**
-     * Name of 'produce' element.
-     */
-    public static final String PRODUCE = "produce";
-
-    /**
      * Remote file consumer.
      */
     private CamelRemoteFileConsumerBindingModel _consume;
@@ -146,7 +136,7 @@ public abstract class V1CamelRemoteFileBindingModel extends V1GenericFileBinding
         setModelChildrenOrder(
             HOST, PORT, USERNAME, PASSWORD, BINARY, CONNECTION_TIMEOUT,
             THROW_EXCEPTION_ON_CONNECT_FAILED, STEPWISE, SEPARATOR, RECONNECT_DELAY,
-            MAXIMUM_RECONNECT_ATTEMPTS, DISCONNECT, CONSUME, PRODUCE
+            MAXIMUM_RECONNECT_ATTEMPTS, DISCONNECT
         );
     }
 

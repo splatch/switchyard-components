@@ -24,6 +24,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.switchyard.component.camel.Route;
 import org.switchyard.component.camel.RouteFactory;
+import org.switchyard.component.camel.scanner.ServiceInterface;
+import org.switchyard.component.camel.scanner.SingleRouteService;
 
 public class RouteFactoryTest {
 

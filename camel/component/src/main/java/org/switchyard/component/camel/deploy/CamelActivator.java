@@ -58,7 +58,7 @@ public class CamelActivator extends BaseBindingActivator {
      * @param context Camel context to use.
      */
     public CamelActivator(SwitchYardCamelContext context) {
-        super(context, V1CamelImplementationModel.IMPLEMENTATION);
+        super(context, V1CamelImplementationModel.CAMEL);
     }
 
     @Override

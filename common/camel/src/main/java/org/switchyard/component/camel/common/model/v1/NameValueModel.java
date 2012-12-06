@@ -20,7 +20,6 @@ package org.switchyard.component.camel.common.model.v1;
 
 import javax.xml.namespace.QName;
 
-import org.switchyard.component.camel.common.model.CamelBindingModel;
 import org.switchyard.config.Configuration;
 import org.switchyard.config.model.BaseModel;
 
@@ -34,14 +33,6 @@ import org.switchyard.config.model.BaseModel;
  * <br>
  */
 public class NameValueModel extends BaseModel {
-
-    /**
-     * Create a new NameValueModel with the specified name.
-     * @param name config name
-     */
-    public NameValueModel(String name) {
-        super(new QName(CamelBindingModel.DEFAULT_NAMESPACE, name));
-    }
 
     /**
      * Create a new NameValueModel with the specified name.
@@ -66,7 +57,7 @@ public class NameValueModel extends BaseModel {
     public String getValue() {
         return super.getModelValue();
     }
-    
+
     /**
      * Set the config value.
      * @param value config value
@@ -74,4 +65,5 @@ public class NameValueModel extends BaseModel {
     public void setValue(String value) {
         super.setModelValue(value);
     }
+
 }

@@ -50,7 +50,7 @@ public class V1CamelReferenceBindingModelTest extends V1BaseCamelReferenceBindin
 
     @Override
     protected void createModelAssertions(V1CamelBindingModel model) {
-        assertEquals("camel", model.getType());
+        assertEquals("uri", model.getType());
         assertEquals("direct", model.getConfigURI().getScheme());
     }
 

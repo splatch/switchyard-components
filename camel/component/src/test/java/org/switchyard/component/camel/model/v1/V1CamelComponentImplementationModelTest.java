@@ -33,8 +33,8 @@ import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.switchyard.component.camel.SingleRouteService;
 import org.switchyard.component.camel.model.CamelComponentImplementationModel;
+import org.switchyard.component.camel.scanner.SingleRouteService;
 import org.switchyard.config.model.ModelPuller;
 import org.switchyard.config.model.composite.ComponentModel;
 import org.switchyard.config.model.composite.v1.V1ComponentModel;
@@ -49,7 +49,7 @@ public class V1CamelComponentImplementationModelTest {
     
     private static boolean oldIgnoreWhitespace;
     
-    private static final String XML_ROUTE_PATH = "org/switchyard/component/camel/config/model/v1/SingleRouteService.xml";
+    private static final String XML_ROUTE_PATH = "org/switchyard/component/camel/model/v1/SingleRouteService.xml";
 
     @BeforeClass
     public static void setup() {

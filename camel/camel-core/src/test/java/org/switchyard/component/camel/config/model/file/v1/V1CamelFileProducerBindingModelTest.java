@@ -67,8 +67,8 @@ public class V1CamelFileProducerBindingModelTest extends V1BaseCamelReferenceBin
     @Override
     protected V1CamelFileBindingModel createTestModel() {
         V1CamelFileBindingModel fileModel = (V1CamelFileBindingModel) new V1CamelFileBindingModel()
-            .setAutoCreate(AUTO_CREATE)
-            .setDirectory(DIRECTORY);
+            .setDirectory(DIRECTORY)
+            .setAutoCreate(AUTO_CREATE);
 
         GenericFileProducerBindingModel producer = new V1CamelFileProducerBindingModel()
             .setFileExist(FILE_EXIST)

@@ -1,4 +1,4 @@
- <configuration xmlns="urn:hornetq">
+<configuration xmlns="urn:hornetq">
                
 	<paging-directory>target/data/paging</paging-directory>
 	<bindings-directory>target/data/bindings</bindings-directory>

@@ -6,7 +6,7 @@ import org.switchyard.component.camel.jpa.model.v1.V1CamelJpaBindingModel;
 public class CamelJpaComponent extends BaseBindingComponent {
 
     public CamelJpaComponent() {
-        super("CamelJpa", V1CamelJpaBindingModel.JPA);
+        super("CamelJpaComponent", V1CamelJpaBindingModel.JPA);
     }
 
 }

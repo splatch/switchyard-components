@@ -20,25 +20,26 @@ MA  02110-1301, USA.
 <schema xmlns="http://www.w3.org/2001/XMLSchema"
     targetNamespace="urn:switchyard-component-camel-mail:config:1.0"
     xmlns:tns="urn:switchyard-component-camel-mail:config:1.0"
-    xmlns:common="urn:switchyard-component-camel-common:config:1.0"
     xmlns:switchyard="urn:switchyard-config:switchyard:1.0"
     elementFormDefault="qualified">
 
     <import namespace="urn:switchyard-config:switchyard:1.0"/>
-    <import namespace="urn:switchyard-component-camel-common:config:1.0"/>
+    <include schemaLocation="camel-common-v1.xsd" />
 
     <element name="binding.mail" type="tns:CamelMailBindingType" substitutionGroup="switchyard:binding.switchyard"/>
     <complexType name="CamelMailBindingType">
         <complexContent>
-            <extension base="common:BaseCamelBinding">
+            <extension base="tns:BaseCamelBinding">
                 <sequence>
                     <element name="host" type="string" />
                     <element name="port" type="int" minOccurs="0" maxOccurs="1"/>
                     <element name="username" type="string" minOccurs="0" maxOccurs="1"/>
                     <element name="password" type="string" minOccurs="0" maxOccurs="1"/>
                     <element name="connectionTimeout" type="integer" minOccurs="0" maxOccurs="1"/>
-                    <element name="consume" type="tns:CamelMailConsumerType" minOccurs="0" maxOccurs="1"/>
-                    <element name="produce" type="tns:CamelMailProducerType" minOccurs="0" maxOccurs="1"/>
+                    <choice minOccurs="0" maxOccurs="1">
+                        <element name="consume" type="tns:CamelMailConsumerType"/>
+                        <element name="produce" type="tns:CamelMailProducerType"/>
+                    </choice>
                 </sequence>
                 <attribute name="secure" type="boolean"/>
             </extension>
@@ -57,19 +58,18 @@ MA  02110-1301, USA.
     </complexType>
 
     <complexType name="CamelMailConsumerType">
-        <complexContent>
-            <extension base="common:ScheduledBatchPollConsumerType">
-                <sequence>
-                    <element name="folderName" type="string" minOccurs="0" maxOccurs="1"/>
-                    <element name="fetchSize" type="integer" minOccurs="0" maxOccurs="1"/>
-                    <element name="unseen" type="boolean" minOccurs="0" maxOccurs="1"/>
-                    <element name="delete" type="boolean" minOccurs="0" maxOccurs="1"/>
-                    <element name="copyTo" type="string" minOccurs="0" maxOccurs="1"/>
-                    <element name="disconnect" type="boolean" minOccurs="0" maxOccurs="1"/>
-                </sequence>
-                <attribute name="accountType" type="tns:MailConsumerAccountType" default="imap"/>
-            </extension>
-        </complexContent>
+        <sequence>
+            <group ref="tns:ScheduledPollConsumerType" minOccurs="0" maxOccurs="1" />
+            <group ref="tns:ScheduledBatchPollConsumerType" minOccurs="0" maxOccurs="1" />
+
+            <element name="folderName" type="string" minOccurs="0" maxOccurs="1"/>
+            <element name="fetchSize" type="integer" minOccurs="0" maxOccurs="1"/>
+            <element name="unseen" type="boolean" minOccurs="0" maxOccurs="1"/>
+            <element name="delete" type="boolean" minOccurs="0" maxOccurs="1"/>
+            <element name="copyTo" type="string" minOccurs="0" maxOccurs="1"/>
+            <element name="disconnect" type="boolean" minOccurs="0" maxOccurs="1"/>
+        </sequence>
+        <attribute name="accountType" type="tns:MailConsumerAccountType" default="imap"/>
     </complexType>
 
     <simpleType name="MailConsumerAccountType">

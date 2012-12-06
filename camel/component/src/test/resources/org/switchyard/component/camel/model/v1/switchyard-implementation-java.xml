@@ -14,13 +14,12 @@
     MA 02110-1301, USA. -->
 <switchyard xmlns="urn:switchyard-config:switchyard:1.0"
     xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912"
-    xmlns:camel="urn:switchyard-component-camel:config:1.0"
-    xmlns:bean="urn:switchyard-component-bean:config:1.0">
+    xmlns:camel="urn:switchyard-component-camel:config:1.0">
 
     <sca:composite name="camelTest" targetNamespace="urn:camel-core:test:1.0">
         <sca:component name="SingleRouteService">
             <camel:implementation.camel>
-                <camel:java class="org.switchyard.component.camel.config.model.SingleRouteService"/>
+                <camel:java class="org.switchyard.component.camel.scanner.SingleRouteService"/>
             </camel:implementation.camel>
 
             <sca:service name="ServiceInterface" >

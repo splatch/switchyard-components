@@ -20,41 +20,18 @@ MA  02110-1301, USA.
 <schema xmlns="http://www.w3.org/2001/XMLSchema"
     targetNamespace="urn:switchyard-component-camel-jms:config:1.0"
     xmlns:tns="urn:switchyard-component-camel-jms:config:1.0"
-    xmlns:common="urn:switchyard-component-camel-common:config:1.0"
     xmlns:switchyard="urn:switchyard-config:switchyard:1.0"
     elementFormDefault="qualified">
 
     <import namespace="urn:switchyard-config:switchyard:1.0"/>
-    <import namespace="urn:switchyard-component-camel-common:config:1.0"/>
+    <include schemaLocation="camel-common-v1.xsd" />
 
     <element name="binding.jms" type="tns:CamelJmsBindingType" substitutionGroup="switchyard:binding.switchyard"/>
     <complexType name="CamelJmsBindingType">
         <complexContent>
-            <extension base="common:BaseCamelBinding">
+            <extension base="tns:BaseCamelBinding">
                 <sequence>
-                    <choice minOccurs="1">
-                        <element name="queue" type="string"/>
-                        <element name="topic" type="string"/>
-                    </choice>
-                    <element name="connectionFactory" type="string" />
-                    <element name="username" type="string" minOccurs="0" maxOccurs="1"/>
-                    <element name="password" type="string" minOccurs="0" maxOccurs="1"/>
-                    <element name="clientId" type="string" minOccurs="0" maxOccurs="1"/>
-                    <element name="durableSubscriptionName" type="string" minOccurs="0" maxOccurs="1"/>
-                    <element name="concurrentConsumers" type="int" minOccurs="0" maxOccurs="1"/>
-                    <element name="maxConcurrentConsumers" type="int" minOccurs="0" maxOccurs="1"/>
-                    <element name="disableReplyTo" type="boolean" minOccurs="0" maxOccurs="1"/>
-                    <element name="preserveMessageQos" type="boolean" minOccurs="0" maxOccurs="1"/>
-                    <element name="deliveryPersistent" type="boolean" minOccurs="0" maxOccurs="1"/>
-                    <element name="priority" type="int" minOccurs="0" maxOccurs="1"/>
-                    <element name="explicitQosEnabled" type="boolean" minOccurs="0" maxOccurs="1"/>
-                    <element name="replyTo" type="string" minOccurs="0" maxOccurs="1"/>
-                    <element name="replyToType" type="string" minOccurs="0" maxOccurs="1"/>
-                    <element name="requestTimeout" type="int" minOccurs="0" maxOccurs="1"/>
-                    <element name="selector" type="string" minOccurs="0" maxOccurs="1"/>
-                    <element name="timeToLive" type="int" minOccurs="0" maxOccurs="1"/>
-                    <element name="transacted" type="boolean" minOccurs="0" maxOccurs="1"/>
-                    <element name="transactionManager" type="string" minOccurs="0" maxOccurs="1"/>
+                    <group ref="tns:JmsBindingType" minOccurs="0" maxOccurs="1" />
                 </sequence>
             </extension>
         </complexContent>

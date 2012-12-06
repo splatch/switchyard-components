@@ -29,19 +29,17 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.switchyard.component.camel.deploy.support.CustomException;
-import org.switchyard.deploy.internal.Deployment;
+import org.switchyard.component.test.mixins.cdi.CDIMixIn;
 import org.switchyard.test.Invoker;
 import org.switchyard.test.ServiceOperation;
 import org.switchyard.test.SwitchYardRunner;
 import org.switchyard.test.SwitchYardTestCaseConfig;
-import org.switchyard.component.test.mixins.cdi.CDIMixIn;
 
 /**
  * Test for {@link CamelActivator} that uses a implementation.camel and
  * test error handling.
  * 
  * @author Daniel Bevenius
- * 
  */
 @RunWith(SwitchYardRunner.class)
 @SwitchYardTestCaseConfig(config = "switchyard-activator-impl-error.xml", mixins = CDIMixIn.class)
@@ -50,15 +48,14 @@ public class CamelImplementationErrorHandlingTest {
     @ServiceOperation("OrderService.getTitleForItem")
     private Invoker _getTitleForItem;
 
-    private Deployment _deployment;
-
     @Rule
     public SwitchYardExpectedException thrown = SwitchYardExpectedException.none();
 
+    private CamelContext _camelContext;
+
     @Before
     public void setupMockEndpoint() {
-        final CamelContext camelContext = getCamelContext();
-        final MockEndpoint endpoint = camelContext.getEndpoint("mock://throw", MockEndpoint.class);
+        final MockEndpoint endpoint = _camelContext.getEndpoint("mock://throw", MockEndpoint.class);
         endpoint.whenAnyExchangeReceived(new ExceptionThrowingProcesor());
     }
 
@@ -76,8 +73,4 @@ public class CamelImplementationErrorHandlingTest {
         }
     }
 
-    private CamelContext getCamelContext() {
-        final CamelActivator activator = (CamelActivator) _deployment.findActivator("camel");
-        return activator.getCamelContext();
-    }
 }

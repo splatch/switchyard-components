@@ -20,7 +20,7 @@
  */
 package org.switchyard.component.camel.jpa.model.v1;
 
-import javax.xml.namespace.QName;
+import static org.switchyard.component.camel.jpa.model.Constants.JPA_NAMESPACE_V1;
 
 import org.switchyard.component.camel.common.model.v1.V1BaseCamelModel;
 import org.switchyard.component.camel.jpa.model.CamelJpaProducerBindingModel;
@@ -54,7 +54,7 @@ public class V1CamelJpaProducerBindingModel extends V1BaseCamelModel
      * Creates new binding model.
      */
     public V1CamelJpaProducerBindingModel() {
-        super(new QName(V1CamelJpaBindingModel.PRODUCE));
+        super(V1CamelJpaBindingModel.PRODUCE, JPA_NAMESPACE_V1);
     }
 
     @Override

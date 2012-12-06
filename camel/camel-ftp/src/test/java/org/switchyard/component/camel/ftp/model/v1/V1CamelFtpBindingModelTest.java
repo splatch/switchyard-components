@@ -24,6 +24,7 @@ import static junit.framework.Assert.assertEquals;
 
 import org.apache.camel.component.file.remote.FtpEndpoint;
 import org.switchyard.component.camel.common.model.remote.CamelRemoteFileBindingModel.PathSeparator;
+import org.switchyard.component.camel.common.model.remote.v1.V1CamelRemoteFileBindingModel;
 import org.switchyard.component.camel.config.test.v1.V1BaseCamelServiceBindingModelTest;
 
 /**
@@ -65,11 +66,7 @@ public class V1CamelFtpBindingModelTest extends V1BaseCamelServiceBindingModelTe
 
     @Override
     protected V1CamelFtpBindingModel createTestModel() {
-        return (V1CamelFtpBindingModel) new V1CamelFtpBindingModel()
-            .setPassiveMode(PASSIVE_MODE)
-            .setTimeout(TIMEOUT)
-            .setSoTimeout(SO_TIMEOUT)
-            .setSiteCommand(SITE_COMMAND)
+        V1CamelRemoteFileBindingModel model = new V1CamelFtpBindingModel()
             .setDirectory(DIRECTORY)
             .setHost(HOST)
             .setPort(PORT)
@@ -77,12 +74,16 @@ public class V1CamelFtpBindingModelTest extends V1BaseCamelServiceBindingModelTe
             .setPassword(PASSWORD)
             .setBinary(BINARY)
             .setConnectionTimeout(CONNECT_TIMEOUT)
-            .setThrowExceptionOnConnectFailed(THROW_EXCEPTION_ON_CONNECT_FAIL)
-            .setStepwise(STEPWISE)
-            .setSeparator(SEPARATOR.name())
-            .setReconnectDelay(RECONNECT_DELAY)
+            .setDisconnect(DISCONNECT)
             .setMaximumReconnectAttempts(MAXIMUM_RECONNECT_ATTEMPTS)
-            .setDisconnect(DISCONNECT);
+            .setReconnectDelay(RECONNECT_DELAY)
+            .setSeparator(SEPARATOR.name())
+            .setStepwise(STEPWISE)
+            .setThrowExceptionOnConnectFailed(THROW_EXCEPTION_ON_CONNECT_FAIL);
+        return ((V1CamelFtpBindingModel) model).setPassiveMode(PASSIVE_MODE)
+            .setTimeout(TIMEOUT)
+            .setSoTimeout(SO_TIMEOUT)
+            .setSiteCommand(SITE_COMMAND);
     }
 
     @Override

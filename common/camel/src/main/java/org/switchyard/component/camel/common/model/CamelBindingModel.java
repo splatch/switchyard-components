@@ -55,11 +55,6 @@ import org.switchyard.config.model.composite.BindingModel;
 public interface CamelBindingModel extends BindingModel {
 
     /**
-     * The names space for the camel config model.
-     */
-    String DEFAULT_NAMESPACE = "urn:switchyard-component-camel:config:1.0";
-
-    /**
      * Name of 'produce' element.
      */
     String PRODUCE = "produce";

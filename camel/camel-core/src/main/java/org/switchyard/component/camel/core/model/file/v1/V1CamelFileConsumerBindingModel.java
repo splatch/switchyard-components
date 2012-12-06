@@ -18,9 +18,8 @@
  */
 package org.switchyard.component.camel.core.model.file.v1;
 
-import javax.xml.namespace.QName;
-
 import org.switchyard.component.camel.common.model.file.v1.V1GenericFileConsumerBindingModel;
+import org.switchyard.component.camel.core.model.Constants;
 import org.switchyard.component.camel.core.model.file.CamelFileConsumerBindingModel;
 import org.switchyard.config.Configuration;
 import org.switchyard.config.model.Descriptor;
@@ -37,7 +36,7 @@ public class V1CamelFileConsumerBindingModel extends V1GenericFileConsumerBindin
      * Create a new V1CamelFileConsumerBindingModel.
      */
     public V1CamelFileConsumerBindingModel() {
-        super(new QName(V1CamelFileBindingModel.CONSUME));
+        super(V1CamelFileBindingModel.CONSUME, Constants.CORE_NAMESPACE_V1);
     }
 
     /**

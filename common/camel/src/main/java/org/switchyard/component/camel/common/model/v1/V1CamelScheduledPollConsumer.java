@@ -20,8 +20,6 @@ package org.switchyard.component.camel.common.model.v1;
 
 import java.util.concurrent.TimeUnit;
 
-import javax.xml.namespace.QName;
-
 import org.switchyard.component.camel.common.model.consumer.CamelScheduledPollConsumer;
 import org.switchyard.config.Configuration;
 import org.switchyard.config.model.Descriptor;
@@ -58,12 +56,13 @@ public class V1CamelScheduledPollConsumer extends V1BaseCamelModel
     private static final String SEND_EMPTY_MESSAGE_WHEN_IDLE = "sendEmptyMessageWhenIdle";
 
     /**
-     * Constructor.
+     * Creates model bound to given namespace.
      * 
-     * @param qname Element namespace.
+     * @param name Name of element.
+     * @param namespace Namespace to bound.
      */
-    public V1CamelScheduledPollConsumer(QName qname) {
-        super(qname);
+    public V1CamelScheduledPollConsumer(String name, String namespace) {
+        super(name, namespace);
 
         setModelChildrenOrder(INITIAL_DELAY, DELAY, USE_FIXED_DELAY,
             TIME_UNIT, SEND_EMPTY_MESSAGE_WHEN_IDLE
@@ -78,15 +77,6 @@ public class V1CamelScheduledPollConsumer extends V1BaseCamelModel
      */
     public V1CamelScheduledPollConsumer(Configuration config, Descriptor desc) {
         super(config, desc);
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param elementName Consumer element name.
-     */
-    public V1CamelScheduledPollConsumer(String elementName) {
-        super(new QName(elementName));
     }
 
     @Override

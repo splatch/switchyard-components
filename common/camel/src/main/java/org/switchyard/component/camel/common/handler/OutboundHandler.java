@@ -31,7 +31,6 @@ import org.switchyard.ExchangePattern;
 import org.switchyard.HandlerException;
 import org.switchyard.common.camel.SwitchYardCamelContext;
 import org.switchyard.component.camel.common.composer.CamelBindingData;
-import org.switchyard.component.camel.common.processor.ProcessorFactory;
 import org.switchyard.component.common.composer.MessageComposer;
 import org.switchyard.deploy.BaseServiceHandler;
 import org.switchyard.exception.SwitchYardException;
@@ -155,9 +154,9 @@ public class OutboundHandler extends BaseServiceHandler {
         switchyardExchange.getMessage().setContent(payload);
         switchyardExchange.send(switchyardExchange.getMessage());
     }
-    
+
     private Processor createProcessor(final Exchange switchyardExchange) {
-        return ProcessorFactory.newProcessor(_messageComposer, switchyardExchange, _uri);
+        return new DefaultProcessor(_messageComposer, switchyardExchange);
     }
 
     /**

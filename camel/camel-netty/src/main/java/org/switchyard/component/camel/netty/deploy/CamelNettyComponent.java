@@ -7,7 +7,7 @@ import org.switchyard.component.camel.netty.model.v1.V1CamelNettyUdpBindingModel
 public class CamelNettyComponent extends BaseBindingComponent {
 
     public CamelNettyComponent() {
-        super("CamelNetty",
+        super("CamelNettyComponent",
             V1CamelNettyTcpBindingModel.TCP,
             V1CamelNettyUdpBindingModel.UDP
         );

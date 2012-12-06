@@ -6,7 +6,7 @@ import org.switchyard.component.camel.jms.model.v1.V1CamelJmsBindingModel;
 public class CamelJmsComponent extends BaseBindingComponent {
 
     public CamelJmsComponent() {
-        super("CamelJms", V1CamelJmsBindingModel.JMS);
+        super("CamelJmsComponent", V1CamelJmsBindingModel.JMS);
     }
 
 }

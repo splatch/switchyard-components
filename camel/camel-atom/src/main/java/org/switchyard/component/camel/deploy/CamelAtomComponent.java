@@ -5,8 +5,8 @@ import org.switchyard.component.camel.common.deploy.BaseBindingComponent;
 
 public class CamelAtomComponent extends BaseBindingComponent {
 
-	public CamelAtomComponent() {
-		super("CamelAtomComponent", V1CamelAtomBindingModel.ATOM);
-	}
+    public CamelAtomComponent() {
+        super("CamelAtomComponent", V1CamelAtomBindingModel.ATOM);
+    }
 
 }

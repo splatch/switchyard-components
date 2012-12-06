@@ -18,9 +18,8 @@
  */
 package org.switchyard.component.camel.core.model.file.v1;
 
-import javax.xml.namespace.QName;
-
 import org.switchyard.component.camel.common.model.file.v1.V1GenericFileProducerBindingModel;
+import org.switchyard.component.camel.core.model.Constants;
 import org.switchyard.component.camel.core.model.file.CamelFileProducerBindingModel;
 import org.switchyard.config.Configuration;
 import org.switchyard.config.model.Descriptor;
@@ -37,17 +36,15 @@ public class V1CamelFileProducerBindingModel extends V1GenericFileProducerBindin
      * Create a new V1CamelFileProducerBindingModel.
      */
     public V1CamelFileProducerBindingModel() {
-        super(new QName(V1CamelFileBindingModel.PRODUCE));
+        super(V1CamelFileBindingModel.PRODUCE, Constants.CORE_NAMESPACE_V1);
     }
 
     /**
      * Create a V1CamelFileProducerBindingModel from the specified configuration
      * and descriptor.
      * 
-     * @param config
-     *            The switchyard configuration instance.
-     * @param desc
-     *            The switchyard descriptor instance.
+     * @param config The switchyard configuration instance.
+     * @param desc The switchyard descriptor instance.
      */
     public V1CamelFileProducerBindingModel(Configuration config, Descriptor desc) {
         super(config, desc);

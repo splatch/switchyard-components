@@ -23,8 +23,6 @@ package org.switchyard.component.camel.common.model.v1;
 import java.text.DateFormat;
 import java.util.Date;
 
-import javax.xml.namespace.QName;
-
 import org.switchyard.config.Configuration;
 import org.switchyard.config.model.BaseModel;
 import org.switchyard.config.model.Descriptor;
@@ -40,8 +38,8 @@ public abstract class V1BaseCamelModel extends BaseModel {
         super(config, desc);
     }
 
-    protected V1BaseCamelModel(QName qname) {
-        super(qname);
+    protected V1BaseCamelModel(String name, String namespace) {
+        super(name, namespace);
     }
 
     protected V1BaseCamelModel(Configuration config) {
@@ -102,7 +100,7 @@ public abstract class V1BaseCamelModel extends BaseModel {
             config.setValue(modelValue);
         } else {
             // create the config model and set the value
-            NameValueModel model = new NameValueModel(name);
+            NameValueModel model = new NameValueModel(getNamespaceURI(), name);
             model.setValue(modelValue);
             setChildModel(model);
         }

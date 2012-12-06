@@ -33,10 +33,8 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.switchyard.ServiceDomain;
 import org.switchyard.component.camel.deploy.support.CustomPackageScanResolver;
 import org.switchyard.component.test.mixins.cdi.CDIMixIn;
-import org.switchyard.deploy.internal.Deployment;
 import org.switchyard.test.MockHandler;
 import org.switchyard.test.SwitchYardRunner;
 import org.switchyard.test.SwitchYardTestCaseConfig;
@@ -52,16 +50,15 @@ import org.switchyard.test.SwitchYardTestKit;
 @SwitchYardTestCaseConfig(config = "switchyard-activator-test.xml", mixins = CDIMixIn.class)
 public class CamelActivatorTest {
 
-    private ServiceDomain _domain;
     private SwitchYardTestKit _testKit;
+    private CamelContext _camelContext;
 
     @Test
     public void sendOneWayMessageThroughCamelToSwitchYardService() throws Exception {
         // remove the currently registered service for SimpleCamelService
         _testKit.removeService("SimpleCamelService");
         final MockHandler mockHandler = _testKit.registerInOnlyService("SimpleCamelService");
-        final CamelContext camelContext = getCamelContext();
-        final ProducerTemplate producerTemplate = camelContext.createProducerTemplate();
+        final ProducerTemplate producerTemplate = _camelContext.createProducerTemplate();
         
         producerTemplate.sendBody("direct://input", "dummy payload");
         assertOneMessage(mockHandler, "dummy payload");
@@ -72,8 +69,7 @@ public class CamelActivatorTest {
 
     @Test
     public void setCustomClassPathResolver() {
-        final CamelContext camelContext = getCamelContext();
-        final PackageScanClassResolver p = camelContext.getPackageScanClassResolver();
+        final PackageScanClassResolver p = _camelContext.getPackageScanClassResolver();
         assertThat(p, is(instanceOf(CustomPackageScanResolver.class)));
     }
 
@@ -81,9 +77,7 @@ public class CamelActivatorTest {
     @Test
     public void startStop() throws Exception {
         final MockHandler mockHandler = _testKit.registerInOnlyService("SimpleCamelService");
-        final CamelActivator activator = getCamelActivator();
-        final CamelContext camelContext = activator.getCamelContext();
-        final ProducerTemplate producerTemplate = camelContext.createProducerTemplate();
+        final ProducerTemplate producerTemplate = _camelContext.createProducerTemplate();
 
         producerTemplate.sendBody("direct://input", "dummy payload");
         assertOneMessage(mockHandler, "dummy payload");
@@ -107,16 +101,6 @@ public class CamelActivatorTest {
         assertThat(mockHandler.getMessages().size(), is(1));
         final String content = mockHandler.getMessages().poll().getMessage().getContent(String.class);
         assertThat(content, is(equalTo("dummy payload")));
-    }
-
-    private CamelActivator getCamelActivator() {
-        final Deployment deployment = (Deployment) _testKit.getDeployment();
-        return (CamelActivator) deployment.findActivator("camel");
-    }
-
-    private CamelContext getCamelContext() {
-        final CamelActivator activator = getCamelActivator();
-        return activator.getCamelContext();
     }
 
 }

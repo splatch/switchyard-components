@@ -42,13 +42,6 @@ public class V1CamelServiceBindingModelTest extends V1BaseCamelServiceBindingMod
         super(DirectEndpoint.class, CAMEL_XML);
     }
 
-//    @Test
-//    public void validateCamelBindingModelWithReference() throws Exception {
-//        final V1CamelBindingModel bindingModel = getFirstCamelModelBinding("switchyard-camel-ref-beans.xml");
-//        validateModel(bindingModel);
-//        assertThat(bindingModel, is(instanceOf(V1CamelBindingModel.class)));
-//    }
-
     @Override
     protected V1CamelBindingModel createTestModel() {
         return new V1CamelBindingModel()
@@ -57,7 +50,7 @@ public class V1CamelServiceBindingModelTest extends V1BaseCamelServiceBindingMod
 
     @Override
     protected void createModelAssertions(V1CamelBindingModel model) {
-        assertEquals("camel", model.getType());
+        assertEquals("uri", model.getType());
         assertEquals("direct", model.getConfigURI().getScheme());
     }
 

@@ -15,8 +15,7 @@
 
 <switchyard xmlns="urn:switchyard-config:switchyard:1.0"
     xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912"
-    xmlns:atom="urn:switchyard-component-camel-atom:config:1.0"
-    xmlns:common="urn:switchyard-component-camel-common:config:1.0">
+    xmlns:atom="urn:switchyard-component-camel-atom:config:1.0">
 
     <sca:composite name="camelTest" targetNamespace="urn:camel-core:test:1.0">
         <sca:service name="camelTest" promote="SimpleCamelService">
@@ -29,9 +28,9 @@
                 <atom:feedHeader>true</atom:feedHeader>
                 <atom:sortEntries>true</atom:sortEntries>
                 <atom:consume>
-                    <common:initialDelay>20000</common:initialDelay>
-                    <common:delay>15000</common:delay>
-                    <common:useFixedDelay>true</common:useFixedDelay>
+                    <atom:initialDelay>20000</atom:initialDelay>
+                    <atom:delay>15000</atom:delay>
+                    <atom:useFixedDelay>true</atom:useFixedDelay>
                 </atom:consume>
             </atom:binding.atom>
         </sca:service>

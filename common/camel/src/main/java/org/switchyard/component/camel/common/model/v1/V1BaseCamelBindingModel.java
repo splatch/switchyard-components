@@ -52,23 +52,6 @@ public abstract class V1BaseCamelBindingModel extends V1BindingModel
     private Configuration _environment = Configurations.emptyConfig();
 
     /**
-     * Constructor.
-     */
-    public V1BaseCamelBindingModel() {
-        this(CAMEL);
-        setModelChildrenOrder();
-    }
-
-    /**
-     * Create a new CamelBindingModel.
-     * 
-     * @param type Binding type
-     */
-    public V1BaseCamelBindingModel(String type) {
-        super(type, CamelBindingModel.DEFAULT_NAMESPACE);
-    }
-
-    /**
      * 
      * Create a new CamelBindingModel.
      * 

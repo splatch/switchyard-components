@@ -8,7 +8,7 @@ import org.switchyard.component.camel.sftp.model.v1.V1CamelSftpBindingModel;
 public class CamelFtpComponent extends BaseBindingComponent {
 
     public CamelFtpComponent() {
-        super("CamelFtp",
+        super("CamelFtpComponent",
             V1CamelFtpBindingModel.FTP,
             V1CamelFtpsBindingModel.FTPS,
             V1CamelSftpBindingModel.SFTP

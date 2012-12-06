@@ -20,30 +20,33 @@ MA  02110-1301, USA.
 <schema xmlns="http://www.w3.org/2001/XMLSchema"
         targetNamespace="urn:switchyard-component-camel-core:config:1.0"
         xmlns:tns="urn:switchyard-component-camel-core:config:1.0"
-        xmlns:common="urn:switchyard-component-camel-common:config:1.0"
         xmlns:switchyard="urn:switchyard-config:switchyard:1.0"
         elementFormDefault="qualified">
 
     <import namespace="urn:switchyard-config:switchyard:1.0"/>
-    <import namespace="urn:switchyard-component-camel-common:config:1.0" />
+
+    <include schemaLocation="camel-common-v1.xsd" />
 
     <!-- camel:binding.xxx -->
     <element name="binding.uri" type="tns:CamelBindingType" substitutionGroup="switchyard:binding.switchyard"/>
     <complexType name="CamelBindingType">
         <complexContent>
-            <extension base="common:BaseCamelBinding">
+            <extension base="tns:BaseCamelBinding">
                 <attribute name="configURI" type="anyURI"/>
             </extension>
         </complexContent>
     </complexType>
 
     <element name="binding.file" type="tns:CamelFileBindingType" substitutionGroup="switchyard:binding.switchyard"/>
-    <complexType name="CamelFileBindingType" >
+    <complexType name="CamelFileBindingType">
         <complexContent>
-            <extension base="common:GenericFileBindingType">
+            <extension base="tns:BaseCamelBinding">
                 <sequence>
-                    <element name="consume" type="tns:FileConsumerType" minOccurs="0" maxOccurs="1"/>
-                    <element name="produce" type="tns:FileProducerType" minOccurs="0" maxOccurs="1"/>
+                    <group ref="tns:GenericFileBindingType" minOccurs="1" maxOccurs="1"/>
+                    <choice minOccurs="0" maxOccurs="1">
+                        <element name="consume" type="tns:FileConsumerType"/>
+                        <element name="produce" type="tns:FileProducerType"/>
+                    </choice>
                 </sequence>
             </extension>
         </complexContent>
@@ -52,7 +55,7 @@ MA  02110-1301, USA.
     <element name="binding.direct" type="tns:CamelDirectBindingType" substitutionGroup="switchyard:binding.switchyard"/>
     <complexType name="CamelDirectBindingType" >
         <complexContent>
-            <extension base="common:BaseCamelBinding">
+            <extension base="tns:BaseCamelBinding">
                 <sequence>
                     <element name="name" type="string"/>
                 </sequence>
@@ -63,7 +66,7 @@ MA  02110-1301, USA.
     <element name="binding.timer" type="tns:CamelTimerBindingType" substitutionGroup="switchyard:binding.switchyard"/>
     <complexType name="CamelTimerBindingType" >
         <complexContent>
-            <extension base="common:BaseCamelBinding">
+            <extension base="tns:BaseCamelBinding">
                 <sequence>
                     <element name="name" type="string"/>
                     <element name="time" type="dateTime" minOccurs="0" maxOccurs="1"/>
@@ -80,7 +83,7 @@ MA  02110-1301, USA.
     <element name="binding.seda" type="tns:CamelSedaBindingType" substitutionGroup="switchyard:binding.switchyard"/>
     <complexType name="CamelSedaBindingType" >
         <complexContent>
-            <extension base="common:BaseCamelBinding">
+            <extension base="tns:BaseCamelBinding">
                 <sequence>
                     <element name="name" type="string"/>
                     <element name="size" type="integer"/>
@@ -97,7 +100,7 @@ MA  02110-1301, USA.
     <element name="binding.mock" type="tns:CamelMockBindingType" substitutionGroup="switchyard:binding.switchyard"/>
     <complexType name="CamelMockBindingType" >
         <complexContent>
-            <extension base="common:BaseCamelBinding">
+            <extension base="tns:BaseCamelBinding">
                 <sequence>
                     <element name="name" type="string"/>
                     <element name="reportGroup" type="integer" minOccurs="0" maxOccurs="1"/>
@@ -107,15 +110,17 @@ MA  02110-1301, USA.
     </complexType>
 
     <complexType name="FileConsumerType">
-        <complexContent>
-            <extension base="common:GenericFileConsumerType" />
-        </complexContent>
+        <sequence>
+            <group ref="tns:GenericFileConsumerType" minOccurs="0" maxOccurs="1" />
+            <group ref="tns:ScheduledBatchPollConsumerType" minOccurs="0" maxOccurs="1" />
+            <group ref="tns:ScheduledPollConsumerType" minOccurs="0" maxOccurs="1" />
+        </sequence>
     </complexType>
 
     <complexType name="FileProducerType">
-        <complexContent>
-            <extension base="common:GenericFileProducerType" />
-        </complexContent>
+        <sequence>
+            <group ref="tns:GenericFileProducerType" minOccurs="0" maxOccurs="1" />
+        </sequence>
     </complexType>
 
 </schema>

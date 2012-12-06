@@ -20,8 +20,6 @@ package org.switchyard.component.camel.common.model.consumer;
 
 import static junit.framework.Assert.assertEquals;
 
-import javax.xml.namespace.QName;
-
 import org.junit.Test;
 import org.switchyard.component.camel.common.model.v1.V1CamelScheduledBatchPollConsumer;
 
@@ -41,7 +39,7 @@ public class CamelScheduledBatchPollConsumerTest {
     }
 
     private CamelScheduledBatchPollConsumer createModel() {
-        return new V1CamelScheduledBatchPollConsumer(new QName("test"))
+        return new V1CamelScheduledBatchPollConsumer("test", "test")
             .setMaxMessagesPerPoll(MAX_MESSAGES_PER_POLL);
     }
 }

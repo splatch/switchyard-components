@@ -21,7 +21,7 @@
  */
 package org.switchyard.component.camel.mail.model.v1;
 
-import javax.xml.namespace.QName;
+import static org.switchyard.component.camel.mail.model.Constants.MAIL_NAMESPACE_V1;
 
 import org.switchyard.component.camel.common.model.v1.V1CamelScheduledBatchPollConsumer;
 import org.switchyard.component.camel.mail.model.CamelMailConsumerBindingModel;
@@ -60,7 +60,7 @@ public class V1CamelMailConsumerBindingModel extends V1CamelScheduledBatchPollCo
      * Creates new consumer binding model.
      */
     public V1CamelMailConsumerBindingModel() {
-        super(new QName(V1CamelMailBindingModel.CONSUME));
+        super(V1CamelMailBindingModel.CONSUME, MAIL_NAMESPACE_V1);
 
         setModelChildrenOrder(FOLDER_NAME, FETCH_SIZE, UNSEEN, DELETE, COPY_TO, DISCONNECT);
     }

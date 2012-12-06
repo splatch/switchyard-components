@@ -34,7 +34,6 @@ public class V1CamelJmsBindingModelTest extends V1BaseCamelServiceBindingModelTe
 
     private static final String CAMEL_XML = "/v1/switchyard-jms-binding-beans.xml";
 
-    private static final String QUEUE = "test_queue";
     private static String TOPIC = "esb_in_topic";
     private static String CONNECTION_FACTORY = "connFactory";
     private static String USERNAME = "camel";

@@ -31,16 +31,15 @@ public interface GenericFileProducerBindingModel {
      * 
      * @return the fileExist value
      */
-    public abstract String getFileExist();
+    String getFileExist();
 
     /**
      * Specify what to do if a file already exists with the same name.
      * 
-     * @param fileExist
-     *            one of these: Override, Append, Fail or Ignore
+     * @param fileExist one of these: Override, Append, Fail or Ignore
      * @return a reference to this Camel File binding model
      */
-    public abstract GenericFileProducerBindingModel setFileExist(String fileExist);
+    GenericFileProducerBindingModel setFileExist(String fileExist);
 
     /**
      * This option is used to write the file using a temporary name and then,
@@ -48,18 +47,16 @@ public interface GenericFileProducerBindingModel {
      * 
      * @return the tempPrefix value
      */
-    public abstract String getTempPrefix();
+    String getTempPrefix();
 
     /**
      * Specify the name of the temporary name when writting it. After the write
      * is complete, it will be renamed to the real name.
      * 
-     * @param tempPrefix
-     *            the temporary file name
+     * @param tempPrefix the temporary file name
      * @return a reference to this Camel File binding model
      */
-    public abstract GenericFileProducerBindingModel setTempPrefix(
-            String tempPrefix);
+    GenericFileProducerBindingModel setTempPrefix(String tempPrefix);
 
     /**
      * Camel 2.1: The same as tempPrefix option but offering a more fine grained
@@ -67,7 +64,7 @@ public interface GenericFileProducerBindingModel {
      * 
      * @return the temporary file name value
      */
-    public abstract String getTempFileName();
+    String getTempFileName();
 
     /**
      * Camel 2.1: The same as tempPrefix option but offering a more fine grained
@@ -77,45 +74,37 @@ public interface GenericFileProducerBindingModel {
      *            the temporary file name
      * @return a reference to this Camel File binding model
      */
-    public abstract GenericFileProducerBindingModel setTempFileName(
-            String tempFileName);
+    GenericFileProducerBindingModel setTempFileName(String tempFileName);
 
     /**
-     * Camel 2.2: Will keep the last modified timestamp from the source file (if
-     * any).
+     * Camel 2.2: Will keep the last modified timestamp from the source file (if any).
      * 
      * @return true to keep the last modified timestamp; false otherwise
      */
-    public abstract Boolean isKeepLastModified();
+    Boolean isKeepLastModified();
 
     /**
-     * Camel 2.2: Will keep the last modified timestamp from the source file (if
-     * any).
+     * Camel 2.2: Will keep the last modified timestamp from the source file (if any).
      * 
-     * @param keepLastModified
-     *            whether to keep the last modified timestamp (true), or not
-     *            (false)
+     * @param keepLastModified whether to keep the last modified timestamp (true), or not (false)
      * @return a reference to this Camel File binding model
      */
-    public abstract GenericFileProducerBindingModel setKeepLastModified(
-            Boolean keepLastModified);
+    GenericFileProducerBindingModel setKeepLastModified(Boolean keepLastModified);
 
     /**
      * Camel 2.3: Whether or not to eagerly delete any existing target file.
      * 
      * @return true if eagerly delete existing target file; false otherwise
      */
-    public abstract Boolean isEagerDeleteTargetFile();
+    Boolean isEagerDeleteTargetFile();
 
     /**
      * Camel 2.3: Whether or not to eagerly delete any existing target file.
      * 
-     * @param eagerDeleteTargetFile
-     *            true if eagerly delete existing target file; false otherwise
+     * @param eagerDeleteTargetFile true if eagerly delete existing target file; false otherwise
      * @return a reference to this Camel File binding model
      */
-    public abstract GenericFileProducerBindingModel setEagerDeleteTargetFile(
-            Boolean eagerDeleteTargetFile);
+    GenericFileProducerBindingModel setEagerDeleteTargetFile(Boolean eagerDeleteTargetFile);
 
     /**
      * Camel 2.6: If provided, then Camel will write a 2nd done file when the
@@ -123,17 +112,15 @@ public interface GenericFileProducerBindingModel {
      * 
      * @return the file name to use
      */
-    public abstract String getDoneFileName();
+    String getDoneFileName();
 
     /**
      * If provided, then Camel will write a 2nd done file when the original file
      * has been written.
      * 
-     * @param doneFileName
-     *            the file name to use
+     * @param doneFileName the file name to use
      * @return a reference to this Camel File binding model
      */
-    public abstract GenericFileProducerBindingModel setDoneFileName(
-            String doneFileName);
+    GenericFileProducerBindingModel setDoneFileName(String doneFileName);
 
 }

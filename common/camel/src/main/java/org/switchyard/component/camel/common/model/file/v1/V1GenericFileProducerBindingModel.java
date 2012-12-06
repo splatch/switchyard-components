@@ -18,8 +18,6 @@
  */
 package org.switchyard.component.camel.common.model.file.v1;
 
-import javax.xml.namespace.QName;
-
 import org.switchyard.component.camel.common.model.file.GenericFileProducerBindingModel;
 import org.switchyard.component.camel.common.model.v1.V1BaseCamelModel;
 import org.switchyard.config.Configuration;
@@ -66,10 +64,11 @@ public abstract class V1GenericFileProducerBindingModel extends V1BaseCamelModel
     /**
      * Create a binding model bound to given namespace.
      * 
-     * @param qname Namespace to bound.
+     * @param name Element name.
+     * @param namespace Namespace to bound.
      */
-    public V1GenericFileProducerBindingModel(QName qname) {
-        super(qname);
+    public V1GenericFileProducerBindingModel(String name, String namespace) {
+        super(name, namespace);
         setModelChildrenOrder(FILE_EXIST, TEMP_PREFIX, TEMP_FILENAME,
             KEEP_LAST_MODIFIED, EAGER_DELETE_TARGET_FILE, DONE_FILE_NAME);
     }

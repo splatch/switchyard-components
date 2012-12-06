@@ -51,7 +51,6 @@ import org.switchyard.component.test.mixins.hornetq.HornetQMixIn;
  * Test using Camel's JMS Component in SwitchYard.
  *
  * @author Daniel Bevenius
- *
  */
 @SwitchYardTestCaseConfig(config = "switchyard-jms-test.xml", mixins = {CDIMixIn.class, HornetQMixIn.class})
 @RunWith(SwitchYardRunner.class)
@@ -60,7 +59,7 @@ public class CamelJMSTest {
     private ServiceDomain _domain;
 
     private SwitchYardTestKit _testKit;
-    
+
     @Test
     public void sendOneWayTextMessageToJMSQueue() throws Exception {
         sendAndAssertOneMessage();
@@ -132,5 +131,5 @@ public class CamelJMSTest {
             }
         }
     }
-    
+
 }

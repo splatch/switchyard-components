@@ -19,7 +19,7 @@
 
     <sca:composite name="SimpleCamelService" targetNamespace="urn:camel-core:test:1.0">
         <sca:service name="SimpleCamelService" promote="ComponentName/SimpleCamelService">
-            <core:binding.camel configURI="jms://TestQueue?connectionFactory=#ConnectionFactory"/>
+            <core:binding.uri configURI="jms://TestQueue?connectionFactory=#ConnectionFactory"/>
         </sca:service>
 
         <sca:component name="ComponentName">
