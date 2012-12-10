@@ -29,7 +29,23 @@ import org.switchyard.component.camel.common.model.file.GenericFileBindingModel;
  */
 public interface CamelRemoteFileBindingModel extends GenericFileBindingModel {
 
-    public enum PathSeparator { UNIX, Windows, Auto };
+    /**
+     * Path separator enumeration.
+     */
+    public enum PathSeparator { 
+        /**
+         * Unix style path separator.
+         */
+        UNIX, 
+        /**
+         * Windows style path separator.
+         */
+        Windows, 
+        /**
+         * Enables auto detection of path separator.
+         */
+        Auto
+    };
 
    /**
      * Gets host name / ip.

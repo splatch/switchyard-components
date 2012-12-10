@@ -26,7 +26,6 @@ import java.util.Map;
 
 import javax.xml.namespace.QName;
 
-import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.spring.spi.SpringTransactionPolicy;
 import org.apache.camel.util.URISupport;
@@ -53,7 +52,6 @@ import org.switchyard.selector.OperationSelector;
  * </pre>
  * 
  * @author Daniel Bevenius
- *
  */
 public class InboundHandler extends BaseServiceHandler {
 
@@ -71,7 +69,7 @@ public class InboundHandler extends BaseServiceHandler {
      * Sole constructor.
      * 
      * @param camelBindingModel The {@link CamelBindingModel}.
-     * @param camelContext The {@link ModelCamelContext}.
+     * @param camelContext The camel context instance.
      * @param serviceName The target service name.
      */
     public InboundHandler(final CamelBindingModel camelBindingModel, final SwitchYardCamelContext camelContext, final QName serviceName) {
@@ -165,7 +163,7 @@ public class InboundHandler extends BaseServiceHandler {
     }
 
     /**
-     * Will create the Camel route and add it to the {@link ModelCamelContext}.
+     * Will create the Camel route and add it to the camel context.
      */
     @Override
     public void start() {

@@ -34,7 +34,7 @@ public class BaseModelMarshaller extends BaseMarshaller {
      */
     private String _namespace;
 
-    protected BaseModelMarshaller(Descriptor desc) {
+    private BaseModelMarshaller(Descriptor desc) {
         super(desc);
 
         register(DEFAULT_NAMESPACE, CONTEXT_MAPPER, new ModelCreator<Model>() {
@@ -51,7 +51,14 @@ public class BaseModelMarshaller extends BaseMarshaller {
         });
     }
 
-    public BaseModelMarshaller(Descriptor desc, String defaultNamespace) {
+    /**
+     * Creates marshaller with given descriptor and bounds by default bindings
+     * and other elements to given namespace.
+     * 
+     * @param desc Descriptor.
+     * @param defaultNamespace Default namespace of model elements.
+     */
+    protected BaseModelMarshaller(Descriptor desc, String defaultNamespace) {
         this(desc);
 
         _namespace = defaultNamespace;
@@ -65,18 +72,44 @@ public class BaseModelMarshaller extends BaseMarshaller {
         return null;
     }
 
+    /**
+     * Registers element handler.
+     * 
+     * @param namespace Element namespace.
+     * @param name Element name.
+     * @param callback Model creator which produces model instance for element.
+     */
     protected <T extends Model> void register(String namespace, String name, ModelCreator<T> callback) {
         _registrations.put(new QName(namespace, name), callback);
     }
 
+    /**
+     * Registers binding element.
+     * 
+     * @param namespace Binding namespace.
+     * @param name Binding element name, without binding. prefix.
+     * @param callback Model creator which produces model instance for element.
+     */
     protected <T extends CamelBindingModel> void registerBinding(String namespace, String name, ModelCreator<T> callback) {
         register(namespace, BindingModel.BINDING + "." + name, callback);
     }
 
+    /**
+     * Registers element handler under default namespace.
+     * 
+     * @param name Element name.
+     * @param callback Model creator which produces model instance for element.
+     */
     protected <T extends Model> void register(String name, ModelCreator<T> callback) {
         register(_namespace, name, callback);
     }
 
+    /**
+     * Registers binging element handler under default namespace.
+     * 
+     * @param name Binding name.
+     * @param callback Model creator which produces model instance for element.
+     */
     protected <T extends CamelBindingModel> void registerBinding(String name, ModelCreator<T> callback) {
         registerBinding(_namespace, name, callback);
     }

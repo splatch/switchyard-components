@@ -25,41 +25,6 @@ package org.switchyard.component.camel.common;
  */
 public interface CamelConstants {
 
-    String COMMON_NAMESPACE_V1 = "urn:switchyard-component-camel-common:config:1.0";
-
-    /**
-     * HTTP scheme.
-     */
-    String HTTP_SCHEME = "http:";
-
-    /**
-     * cxfrs transport scheme.
-     */
-    String CXFRS_SCHEME = "cxfrs:";
-
-    /**
-     * Scheme seperator.
-     */
-    String SCHEME_SUFFIX = "//";
-
-    /**
-     * cxfrs://http://<host>:<port> transport scheme.
-     */
-    String CXFRS_HTTP_SCHEME = CXFRS_SCHEME + SCHEME_SUFFIX + HTTP_SCHEME + SCHEME_SUFFIX;
-
-    /**
-     * cxfrs://http:/// transport scheme.
-     */
-    String CXFRS_HTTP_NO_HOST_SCHEME = CXFRS_HTTP_SCHEME + "/";
-
-    /**
-     * resourceClasses.
-     */
-    String RESOURCE_CLASSES = "resourceClasses=";
-
-    String CAMEL_CXF_RS_RESPONSE_CLASS = "CamelCxfRsResponseClass";
-    String CAMEL_CXF_RS_USING_HTTP_API = "CamelCxfRsUsingHttpAPI";
-
     /**
      * Property added to each Camel Context so that code initialized inside 
      * Camel can access the SY service domain.

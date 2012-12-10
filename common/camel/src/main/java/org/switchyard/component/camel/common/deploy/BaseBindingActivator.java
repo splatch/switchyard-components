@@ -20,7 +20,6 @@ package org.switchyard.component.camel.common.deploy;
 
 import javax.xml.namespace.QName;
 
-import org.apache.camel.CamelContext;
 import org.switchyard.common.camel.SwitchYardCamelContext;
 import org.switchyard.component.camel.common.composer.CamelComposition;
 import org.switchyard.component.camel.common.handler.InboundHandler;
@@ -46,6 +45,11 @@ public class BaseBindingActivator extends BaseActivator {
         _camelContext = context;
     }
 
+    /**
+     * Specify environment configuration for binding.
+     * 
+     * @param config Environment settings.
+     */
     public void setEnvironment(Configuration config) {
         _environment = config;
     }
@@ -62,7 +66,6 @@ public class BaseBindingActivator extends BaseActivator {
                 .getMessageComposer(binding));
         }
     }
-
 
     @Override
     public void deactivateBinding(QName name, ServiceHandler handler) {

@@ -33,10 +33,11 @@
     <url>http://switchyard.org</url>
 
     <dependencies>
-        <dependency>
-            <groupId>org.switchyard.components</groupId>
-            <artifactId>switchyard-component-common-camel</artifactId>
-        </dependency>
+        <!--
+        This dependency provides also dependency to component-common-camel and it's
+        necessary to construct correct classpath for user tests.
+        This section allows users to use camel bindings without camel component.
+         -->
         <dependency>
             <groupId>org.switchyard.components</groupId>
             <artifactId>switchyard-component-camel-switchyard</artifactId>
@@ -46,6 +47,7 @@
             <artifactId>camel-quartz</artifactId>
             <scope>compile</scope>
         </dependency>
+
         <dependency>
             <groupId>org.switchyard.components</groupId>
             <artifactId>switchyard-component-camel-test</artifactId>

@@ -18,7 +18,7 @@
 
     <sca:composite name="camelTest" targetNamespace="urn:camel-core:test:1.0">
         <sca:reference name="test" multiplicity="0..1" promote="test/test">
-            <core:binding.uri xmlns:camel="urn:switchyard-component-camel:config:1.0" configURI="direct://input" />
+            <core:binding.uri configURI="direct://input" />
         </sca:reference>
     </sca:composite>
 

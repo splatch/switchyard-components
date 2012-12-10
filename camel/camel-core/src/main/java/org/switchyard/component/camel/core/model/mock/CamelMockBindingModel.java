@@ -35,7 +35,7 @@ import org.switchyard.component.camel.common.model.CamelBindingModel;
  */
 public interface CamelMockBindingModel extends CamelBindingModel {
 
-	/**
+    /**
      * The name that uniquely identifies the endpoint.
      * @return The name that uniquely identifies the endpoint
      */

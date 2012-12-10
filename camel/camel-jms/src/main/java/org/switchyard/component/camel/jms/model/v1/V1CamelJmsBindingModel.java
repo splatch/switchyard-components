@@ -18,6 +18,8 @@
  */
 package org.switchyard.component.camel.jms.model.v1;
 
+import static org.switchyard.component.camel.jms.model.Constants.JMS_NAMESPACE_V1;
+
 import java.net.URI;
 import java.util.List;
 
@@ -27,10 +29,8 @@ import org.switchyard.component.camel.jms.model.CamelJmsBindingModel;
 import org.switchyard.config.Configuration;
 import org.switchyard.config.model.Descriptor;
 
-import static org.switchyard.component.camel.jms.model.Constants.JMS_NAMESPACE_V1;
-
 /**
- * Implementation of {@link V1CamelJmsBindingModel}.
+ * Implementation of {@link CamelJmsBindingModel}.
  */
 public class V1CamelJmsBindingModel extends V1BaseCamelBindingModel
     implements CamelJmsBindingModel {
@@ -85,12 +85,12 @@ public class V1CamelJmsBindingModel extends V1BaseCamelBindingModel
     }
 
     /**
-     * Extension constructor
+     * Extension constructor.
      * 
      * @param type Type of binding.
      * @param namespace Binding namespace.
      */
-    public V1CamelJmsBindingModel(String type, String namespace) {
+    protected V1CamelJmsBindingModel(String type, String namespace) {
         super(type, namespace);
     }
 

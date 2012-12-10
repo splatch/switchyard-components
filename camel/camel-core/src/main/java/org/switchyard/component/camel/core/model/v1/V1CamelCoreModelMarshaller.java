@@ -31,11 +31,10 @@ import org.switchyard.component.camel.core.model.seda.v1.V1CamelSedaBindingModel
 import org.switchyard.component.camel.core.model.timer.v1.V1CamelTimerBindingModel;
 import org.switchyard.config.Configuration;
 import org.switchyard.config.model.Descriptor;
-import org.switchyard.config.model.Model;
 
 /**
  * A Marshaler that is able to read a {@link Configuration} and populate a
- * {@link Model} corresponding to the configuration informations.
+ * corresponding Model to the configuration informations.
  * <p>
  * 
  * @author Daniel Bevenius

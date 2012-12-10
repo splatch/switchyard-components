@@ -24,7 +24,6 @@ import static org.switchyard.component.camel.core.model.Constants.CORE_NAMESPACE
 
 import java.net.URI;
 
-import org.switchyard.component.camel.common.model.CamelBindingModel;
 import org.switchyard.component.camel.common.model.v1.V1BaseCamelBindingModel;
 import org.switchyard.config.Configuration;
 import org.switchyard.config.model.Descriptor;

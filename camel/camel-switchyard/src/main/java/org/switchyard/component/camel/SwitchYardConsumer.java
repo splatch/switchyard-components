@@ -42,7 +42,7 @@ import org.switchyard.exception.SwitchYardException;
  */
 public class SwitchYardConsumer extends DefaultConsumer implements ServiceHandler {
 
-	private final MessageComposer<CamelBindingData> _messageComposer;
+    private final MessageComposer<CamelBindingData> _messageComposer;
 
     /**
      * Sole constructor.

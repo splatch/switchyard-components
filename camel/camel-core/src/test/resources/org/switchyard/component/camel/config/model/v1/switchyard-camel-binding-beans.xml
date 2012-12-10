@@ -18,7 +18,7 @@
 
     <sca:composite name="camelTest" targetNamespace="urn:camel-core:test:1.0">
         <sca:service name="camelTest" promote="SimpleCamelService">
-            <core:binding.uri xmlns:camel="urn:switchyard-component-camel:config:1.0" configURI="direct://input" />
+            <core:binding.uri configURI="direct://input" />
         </sca:service>
     </sca:composite>
 

@@ -36,7 +36,9 @@ public class NameValueModel extends BaseModel {
 
     /**
      * Create a new NameValueModel with the specified name.
-     * @param name config name
+     * 
+     * @param namespace Config namespace.
+     * @param name Config name
      */
     public NameValueModel(String namespace, String name) {
         super(new QName(namespace, name));

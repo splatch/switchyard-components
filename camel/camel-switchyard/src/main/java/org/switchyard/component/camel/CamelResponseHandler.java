@@ -40,7 +40,7 @@ import org.switchyard.exception.SwitchYardException;
  * @author Daniel Bevenius
  */
 public class CamelResponseHandler implements ExchangeHandler {
-    
+
     private final org.apache.camel.Exchange _camelExchange;
     private final MessageComposer<CamelBindingData> _messageComposer;
 

@@ -143,9 +143,9 @@ public class V1CamelMailConsumerBindingModel extends V1CamelScheduledBatchPollCo
 
     @Override
     public String getProtocol() {
-        AccountType accountType = getModelConfiguration() != null ?
-            AccountType.valueOf(getModelAttribute(ACCOUNT_TYPE)) :
-            AccountType.imap;
+        AccountType accountType = getModelConfiguration() != null
+            ? AccountType.valueOf(getModelAttribute(ACCOUNT_TYPE))
+            : AccountType.imap;
         return accountType.name();
     }
 

@@ -140,7 +140,7 @@ public class V1CamelSedaBindingModel extends V1BaseCamelBindingModel
     }
 
     @Override
-    public V1CamelSedaBindingModel setLimitConcurrentConsumers( Boolean limitConcurrentConsumers) {
+    public V1CamelSedaBindingModel setLimitConcurrentConsumers(Boolean limitConcurrentConsumers) {
         return setConfig(LIMIT_CONCURRENT_CONSUMERS, limitConcurrentConsumers);
     }
 
