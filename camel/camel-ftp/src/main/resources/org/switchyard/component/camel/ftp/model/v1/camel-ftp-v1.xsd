@@ -31,13 +31,14 @@ MA  02110-1301, USA.
         <complexContent>
             <extension base="tns:BaseCamelBinding">
                 <sequence>
-                    <group ref="tns:GenericFileBindingType" minOccurs="0" maxOccurs="1"/>
-                    <group ref="tns:CamelRemoteBindingType" minOccurs="0" maxOccurs="1"/>
+                    <group ref="tns:GenericFileBindingType" minOccurs="1" maxOccurs="1"/>
+                    <group ref="tns:CamelRemoteBindingType" minOccurs="1" maxOccurs="1"/>
 
                     <element name="passiveMode" type="boolean" minOccurs="0" maxOccurs="1"/>
                     <element name="timeout" type="int" minOccurs="0" maxOccurs="1"/>
                     <element name="soTimeout" type="int" minOccurs="0" maxOccurs="1"/>
                     <element name="siteCommand" type="string" minOccurs="0" maxOccurs="1"/>
+
                     <choice minOccurs="0" maxOccurs="1">
                         <element name="consume" type="tns:RemoteFileConsumerType"/>
                         <element name="produce" type="tns:RemoteFileProducerType"/>
@@ -73,6 +74,11 @@ MA  02110-1301, USA.
                     <element name="knownHostsFile" type="string" minOccurs="0" maxOccurs="1" />
                     <element name="privateKeyFile" type="string" minOccurs="0" maxOccurs="1" />
                     <element name="privateKeyFilePassphrase" type="string" minOccurs="0" maxOccurs="1" />
+
+                    <choice minOccurs="0" maxOccurs="1">
+                        <element name="consume" type="tns:RemoteFileConsumerType"/>
+                        <element name="produce" type="tns:RemoteFileProducerType"/>
+                    </choice>
                 </sequence>
             </extension>
         </complexContent>

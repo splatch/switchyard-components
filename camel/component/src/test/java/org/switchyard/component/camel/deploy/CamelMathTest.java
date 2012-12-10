@@ -20,11 +20,15 @@
  */
 package org.switchyard.component.camel.deploy;
 
-import org.apache.camel.CamelContext;
+import static org.junit.Assert.assertNotNull;
+
 import org.apache.camel.component.mock.MockEndpoint;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.switchyard.Exchange;
+import org.switchyard.common.camel.SwitchYardCamelContext;
+import org.switchyard.component.camel.common.CamelConstants;
 import org.switchyard.component.test.mixins.cdi.CDIMixIn;
 import org.switchyard.test.Invoker;
 import org.switchyard.test.ServiceOperation;
@@ -48,10 +52,15 @@ public class CamelMathTest {
     private final static String MATH_SERVICE = "CamelMathService";
     private final static String MATH_SERVICE_NS = SERVICE_NAMESPACE + MATH_SERVICE;
 
-    private CamelContext _camelContext;
+    private SwitchYardCamelContext _camelContext;
 
     @ServiceOperation(MATH_SERVICE)
     private Invoker invoker;
+
+    @Before
+    public void verifyContext() {
+        assertNotNull(_camelContext.getWritebleRegistry().get(CamelConstants.SERVICE_DOMAIN));
+    }
 
     @Test
     public void shouldInvokeDifferentOperations() throws Exception {

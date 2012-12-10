@@ -53,10 +53,14 @@ public abstract class BaseBindingComponent extends BaseComponent {
         SwitchYardCamelContext camelContext = (SwitchYardCamelContext) domain.getProperties()
             .get(SwitchYardCamelContext.CAMEL_CONTEXT_PROPERTY);
         camelContext.getWritebleRegistry().put(CamelConstants.SERVICE_DOMAIN, domain);
-        BaseBindingActivator activator = new BaseBindingActivator(camelContext, types);
+        BaseBindingActivator activator = createActivator(camelContext, types);
         activator.setServiceDomain(domain);
         activator.setEnvironment(getConfig());
         return activator;
+    }
+
+    protected BaseBindingActivator createActivator(SwitchYardCamelContext context, String ... types) {
+        return new BaseBindingActivator(context, types);
     }
 
 }

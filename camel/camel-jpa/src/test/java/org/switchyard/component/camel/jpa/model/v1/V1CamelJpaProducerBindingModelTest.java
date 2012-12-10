@@ -42,6 +42,8 @@ public class V1CamelJpaProducerBindingModelTest extends V1BaseCamelReferenceBind
 
     public V1CamelJpaProducerBindingModelTest() {
         super(JpaEndpoint.class, CAMEL_XML);
+
+        setSkipCamelEndpointTesting(true);
     }
 
     @Override

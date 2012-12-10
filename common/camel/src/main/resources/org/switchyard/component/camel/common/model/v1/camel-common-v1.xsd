@@ -26,10 +26,10 @@ MA  02110-1301, USA.
     <complexType name="BaseCamelBinding">
         <complexContent>
             <extension base="switchyard:SwitchYardBindingType">
-             <sequence>
-                 <element name="contextMapper" type="switchyard:ContextMapperType"  minOccurs="0" maxOccurs="1"/>
-                 <element name="messageComposer" type="switchyard:MessageComposerType" minOccurs="0" maxOccurs="1"/>
-             </sequence>
+                <sequence>
+                    <element name="contextMapper" type="switchyard:ContextMapperType"  minOccurs="0" maxOccurs="1"/>
+                    <element name="messageComposer" type="switchyard:MessageComposerType" minOccurs="0" maxOccurs="1"/>
+                </sequence>
             </extension>
         </complexContent>
     </complexType>

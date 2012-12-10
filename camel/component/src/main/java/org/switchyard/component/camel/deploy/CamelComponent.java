@@ -18,35 +18,28 @@
  */
 package org.switchyard.component.camel.deploy;
 
-import org.switchyard.ServiceDomain;
 import org.switchyard.common.camel.SwitchYardCamelContext;
-import org.switchyard.deploy.Activator;
-import org.switchyard.deploy.BaseComponent;
+import org.switchyard.component.camel.common.deploy.BaseBindingActivator;
+import org.switchyard.component.camel.common.deploy.BaseBindingComponent;
+import org.switchyard.component.camel.model.v1.V1CamelImplementationModel;
 
 /**
  * An implementation of Camel component.
  *
  * @author Magesh Kumar B <mageshbk@jboss.com> (C) 2011 Red Hat Inc.
  */
-public class CamelComponent extends BaseComponent {
+public class CamelComponent extends BaseBindingComponent {
 
     /**
      * Default constructor.
      */
     public CamelComponent() {
-        super(new String[0]);
-        setName("CamelComponent");
+        super("CamelComponent", V1CamelImplementationModel.CAMEL);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public Activator createActivator(ServiceDomain domain) {
-        CamelActivator activator = new CamelActivator((SwitchYardCamelContext) domain.getProperties()
-            .get(SwitchYardCamelContext.CAMEL_CONTEXT_PROPERTY));
-        activator.setServiceDomain(domain);
-        activator.setEnvironment(getConfig());
-        return activator;
+    protected BaseBindingActivator createActivator(SwitchYardCamelContext context, String... types) {
+        return new CamelActivator(context, types);
     }
+
 }

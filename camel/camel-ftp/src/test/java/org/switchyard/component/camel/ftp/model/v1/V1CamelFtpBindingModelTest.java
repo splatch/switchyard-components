@@ -24,7 +24,6 @@ import static junit.framework.Assert.assertEquals;
 
 import org.apache.camel.component.file.remote.FtpEndpoint;
 import org.switchyard.component.camel.common.model.remote.CamelRemoteFileBindingModel.PathSeparator;
-import org.switchyard.component.camel.common.model.remote.v1.V1CamelRemoteFileBindingModel;
 import org.switchyard.component.camel.config.test.v1.V1BaseCamelServiceBindingModelTest;
 
 /**
@@ -38,6 +37,7 @@ public class V1CamelFtpBindingModelTest extends V1BaseCamelServiceBindingModelTe
     private static final String CAMEL_XML = "/v1/switchyard-ftp-binding-beans.xml";
 
     private static final String DIRECTORY = "test";
+    private static final Boolean AUTO_CREATE = false;
     private static final String HOST = "localhost";
     private static final Integer PORT = 203;
     private static final String USERNAME = "camel";
@@ -55,7 +55,7 @@ public class V1CamelFtpBindingModelTest extends V1BaseCamelServiceBindingModelTe
     private static final Boolean PASSIVE_MODE = true;
     private static final String SITE_COMMAND = "PWD";
 
-    private static final String CAMEL_URI = "ftp://camel:secret@localhost:203/test?binary=true&" +
+    private static final String CAMEL_URI = "ftp://camel:secret@localhost:203/test?autoCreate=false&binary=true&" +
         "connectTimeout=10&disconnect=true&maximumReconnectAttempts=10&reconnectDelay=10&" +
         "separator=UNIX&stepwise=true&throwExceptionOnConnectFailed=true&passiveMode=true&" +
         "timeout=10&soTimeout=10&siteCommand=PWD";
@@ -66,9 +66,10 @@ public class V1CamelFtpBindingModelTest extends V1BaseCamelServiceBindingModelTe
 
     @Override
     protected V1CamelFtpBindingModel createTestModel() {
-        V1CamelRemoteFileBindingModel model = new V1CamelFtpBindingModel()
+        V1CamelFtpBindingModel model = (V1CamelFtpBindingModel) new V1CamelFtpBindingModel()
             .setDirectory(DIRECTORY)
-            .setHost(HOST)
+            .setAutoCreate(AUTO_CREATE);
+        model.setHost(HOST)
             .setPort(PORT)
             .setUsername(USERNAME)
             .setPassword(PASSWORD)

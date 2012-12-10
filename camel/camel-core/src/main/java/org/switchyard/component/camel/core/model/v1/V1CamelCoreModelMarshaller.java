@@ -25,7 +25,6 @@ import static org.switchyard.component.camel.core.model.Constants.CORE_NAMESPACE
 import org.switchyard.component.camel.common.marshaller.BaseModelMarshaller;
 import org.switchyard.component.camel.common.marshaller.ModelCreator;
 import org.switchyard.component.camel.core.model.direct.v1.V1CamelDirectBindingModel;
-import org.switchyard.component.camel.core.model.file.v1.V1CamelFileBindingModel;
 import org.switchyard.component.camel.core.model.mock.v1.V1CamelMockBindingModel;
 import org.switchyard.component.camel.core.model.seda.v1.V1CamelSedaBindingModel;
 import org.switchyard.component.camel.core.model.timer.v1.V1CamelTimerBindingModel;
@@ -59,12 +58,6 @@ public class V1CamelCoreModelMarshaller extends BaseModelMarshaller {
             @Override
             public V1CamelDirectBindingModel create(Configuration config, Descriptor descriptor) {
                 return new V1CamelDirectBindingModel(config, descriptor);
-            }
-        });
-        registerBinding(V1CamelFileBindingModel.FILE, new ModelCreator<V1CamelFileBindingModel>() {
-            @Override
-            public V1CamelFileBindingModel create(Configuration config, Descriptor descriptor) {
-                return new V1CamelFileBindingModel(config, descriptor);
             }
         });
         registerBinding(V1CamelTimerBindingModel.TIMER, new ModelCreator<V1CamelTimerBindingModel>() {

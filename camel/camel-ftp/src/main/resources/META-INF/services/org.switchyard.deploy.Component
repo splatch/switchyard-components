@@ -1,3 +1,1 @@
 org.switchyard.component.camel.ftp.deploy.CamelFtpComponent
-org.switchyard.component.camel.sftp.deploy.CamelSftpComponent
-org.switchyard.component.camel.ftps.deploy.CamelFtpsComponent

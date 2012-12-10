@@ -29,7 +29,7 @@
     </parent>
     <artifactId>switchyard-component-camel-sql</artifactId>
     <packaging>jar</packaging>
-    <name>SwitchYard: Camel Component :: JMS Binding</name>
+    <name>SwitchYard: Camel Component :: SQL Binding</name>
     <url>http://switchyard.org</url>
 
     <dependencies>

@@ -20,14 +20,14 @@
  */
 package org.switchyard.component.camel.common.model.file;
 
-import org.switchyard.component.camel.common.model.consumer.CamelScheduledPollConsumer;
+import org.switchyard.component.camel.common.model.consumer.CamelScheduledBatchPollConsumer;
 
 /**
  * Binding model for file based consumers.
  * 
  * @author Lukasz Dywicki
  */
-public interface GenericFileConsumerBindingModel extends CamelScheduledPollConsumer {
+public interface GenericFileConsumerBindingModel extends CamelScheduledBatchPollConsumer {
 
     /**
      * If a directory, will look for files in all the sub-directories as well.

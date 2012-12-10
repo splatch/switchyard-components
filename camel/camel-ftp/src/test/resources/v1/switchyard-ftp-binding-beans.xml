@@ -20,6 +20,7 @@
         <sca:service name="camelTest" promote="SimpleCamelService">
             <ftp:binding.ftp>
                 <ftp:directory>test</ftp:directory>
+                <ftp:autoCreate>false</ftp:autoCreate>
                 <ftp:host>localhost</ftp:host>
                 <ftp:port>203</ftp:port>
                 <ftp:username>camel</ftp:username>

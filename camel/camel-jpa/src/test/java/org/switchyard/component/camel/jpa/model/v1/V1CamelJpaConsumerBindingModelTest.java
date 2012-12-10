@@ -51,6 +51,8 @@ public class V1CamelJpaConsumerBindingModelTest extends V1BaseCamelServiceBindin
 
     public V1CamelJpaConsumerBindingModelTest() {
         super(JpaEndpoint.class, CAMEL_XML);
+
+        setSkipCamelEndpointTesting(true);
     }
 
     @Override

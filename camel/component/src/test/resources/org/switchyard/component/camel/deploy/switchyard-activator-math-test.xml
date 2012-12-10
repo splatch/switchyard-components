@@ -18,7 +18,7 @@
     xmlns:core="urn:switchyard-component-camel-core:config:1.0">
 
     <sca:composite name="MathComposite" targetNamespace="urn:camel-core:test:1.0">
-        <sca:service name="CamelMathService" promote="MathComposite/CamelMathService" />
+        <sca:service name="CamelMathService" promote="MathComponent/CamelMathService" />
 
         <sca:component name="MathComponent">
             <camel:implementation.camel>

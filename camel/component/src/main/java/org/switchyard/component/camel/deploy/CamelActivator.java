@@ -38,7 +38,6 @@ import org.switchyard.component.camel.SwitchYardEndpoint;
 import org.switchyard.component.camel.common.composer.CamelComposition;
 import org.switchyard.component.camel.common.deploy.BaseBindingActivator;
 import org.switchyard.component.camel.model.CamelComponentImplementationModel;
-import org.switchyard.component.camel.model.v1.V1CamelImplementationModel;
 import org.switchyard.config.model.composite.ComponentModel;
 import org.switchyard.config.model.composite.ComponentReferenceModel;
 import org.switchyard.config.model.composite.ComponentServiceModel;
@@ -56,9 +55,10 @@ public class CamelActivator extends BaseBindingActivator {
      * Creates a new activator for Camel endpoint types.
      * 
      * @param context Camel context to use.
+     * @param types Activation types.
      */
-    public CamelActivator(SwitchYardCamelContext context) {
-        super(context, V1CamelImplementationModel.CAMEL);
+    public CamelActivator(SwitchYardCamelContext context, String[] types) {
+        super(context, types);
     }
 
     @Override
@@ -121,7 +121,7 @@ public class CamelActivator extends BaseBindingActivator {
             }
         }
     }
-    
+
     private boolean containsServiceRef(final List<ComponentReferenceModel> refs, final String serviceName) {
         for (ComponentReferenceModel refModel : refs) {
             if (refModel.getName().equals(serviceName)) {
@@ -130,7 +130,7 @@ public class CamelActivator extends BaseBindingActivator {
         }
         return false;
     }
-    
+
     private void addFromEndpointToRouteDefinition(final RouteDefinition rd, final String fromEndpointUri) throws Exception {
         final List<FromDefinition> inputs = rd.getInputs();
 
