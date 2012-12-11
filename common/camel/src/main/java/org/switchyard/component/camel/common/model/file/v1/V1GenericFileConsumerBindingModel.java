@@ -150,8 +150,8 @@ public class V1GenericFileConsumerBindingModel extends V1CamelScheduledBatchPoll
     public V1GenericFileConsumerBindingModel(String name, String namespace) {
         super(name, namespace);
 
-        setModelChildrenOrder(RECURSIVE,
-                DELETE, NOOP, PRE_MOVE, MOVE, MOVE_FAILED, INCLUDE, EXCLUDE,
+        setModelChildrenOrder(
+                DELETE, RECURSIVE, NOOP, PRE_MOVE, MOVE, MOVE_FAILED, INCLUDE, EXCLUDE,
                 IDEMPOTENT, IDEMPOTENT_REPOSITORY, IN_PROGRESS_REPOSITORY,
                 FILTER, SORTER, SORT_BY, READ_LOCK, READ_LOCK_TIMEOUT,
                 READ_LOCK_CHECK_INTERVAL, EXCLUSIVE_READ_LOCK_STRATEGY,

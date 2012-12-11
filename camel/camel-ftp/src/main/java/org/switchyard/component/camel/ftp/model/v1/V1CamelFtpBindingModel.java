@@ -20,13 +20,13 @@
  */
 package org.switchyard.component.camel.ftp.model.v1;
 
+import static org.switchyard.component.camel.ftp.Constants.FTP_NAMESPACE_V1;
+
 import org.switchyard.component.camel.common.QueryString;
 import org.switchyard.component.camel.common.model.remote.v1.V1CamelRemoteFileBindingModel;
 import org.switchyard.component.camel.ftp.model.CamelFtpBindingModel;
 import org.switchyard.config.Configuration;
 import org.switchyard.config.model.Descriptor;
-
-import static org.switchyard.component.camel.ftp.Constants.FTP_NAMESPACE_V1;
 
 /**
  * Implementation of ftp configuration binding.
@@ -69,8 +69,6 @@ public class V1CamelFtpBindingModel extends V1CamelRemoteFileBindingModel implem
      */
     public V1CamelFtpBindingModel(Configuration config, Descriptor descriptor) {
         super(config, descriptor);
-
-        setModelChildrenOrder(PASSIVE_MODE, TIMEOUT, SO_TIMEOUT, SITE_COMMAND, PRODUCE, CONSUME);
     }
 
     /**
@@ -86,8 +84,10 @@ public class V1CamelFtpBindingModel extends V1CamelRemoteFileBindingModel implem
      * @param protocol Protocol scheme.
      * @param namespace Namespace of extension.
      */
-    public V1CamelFtpBindingModel(String protocol, String namespace) {
+    protected V1CamelFtpBindingModel(String protocol, String namespace) {
         super(protocol, namespace);
+
+        setModelChildrenOrder(PASSIVE_MODE, TIMEOUT, SO_TIMEOUT, SITE_COMMAND, CONSUME, PRODUCE);
     }
 
     @Override

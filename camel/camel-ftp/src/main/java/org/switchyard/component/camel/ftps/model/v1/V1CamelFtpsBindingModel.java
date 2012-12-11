@@ -20,13 +20,13 @@
  */
 package org.switchyard.component.camel.ftps.model.v1;
 
+import static org.switchyard.component.camel.ftp.Constants.FTP_NAMESPACE_V1;
+
 import org.switchyard.component.camel.common.QueryString;
 import org.switchyard.component.camel.ftp.model.v1.V1CamelFtpBindingModel;
 import org.switchyard.component.camel.ftps.model.CamelFtpsBindingModel;
 import org.switchyard.config.Configuration;
 import org.switchyard.config.model.Descriptor;
-
-import static org.switchyard.component.camel.ftp.Constants.FTP_NAMESPACE_V1;
 
 /**
  * Implementation of ftps configuration binding.
@@ -62,6 +62,8 @@ public class V1CamelFtpsBindingModel extends V1CamelFtpBindingModel implements
      */
     public V1CamelFtpsBindingModel() {
         super(FTPS, FTP_NAMESPACE_V1);
+
+        setModelChildrenOrder(SECURITY_PROTOCOL, IMPLICT, EXEC_PBSZ, EXEC_PROT, DISABLE_SECURE_DATA_CHANNEL_DEFAULTS);
     }
 
     @Override

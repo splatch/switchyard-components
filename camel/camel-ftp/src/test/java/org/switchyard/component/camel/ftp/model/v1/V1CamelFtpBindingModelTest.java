@@ -24,7 +24,9 @@ import static junit.framework.Assert.assertEquals;
 
 import org.apache.camel.component.file.remote.FtpEndpoint;
 import org.switchyard.component.camel.common.model.remote.CamelRemoteFileBindingModel.PathSeparator;
+import org.switchyard.component.camel.common.model.remote.v1.V1CamelRemoteFileConsumerBindingModel;
 import org.switchyard.component.camel.config.test.v1.V1BaseCamelServiceBindingModelTest;
+import org.switchyard.component.camel.ftp.Constants;
 
 /**
  * Test for {@link V1CamelFtpBindingModel}.
@@ -54,11 +56,12 @@ public class V1CamelFtpBindingModelTest extends V1BaseCamelServiceBindingModelTe
     private static final Integer SO_TIMEOUT = 10;
     private static final Boolean PASSIVE_MODE = true;
     private static final String SITE_COMMAND = "PWD";
+    private static final Integer INITIAL_DELAY = 500;
 
     private static final String CAMEL_URI = "ftp://camel:secret@localhost:203/test?autoCreate=false&binary=true&" +
         "connectTimeout=10&disconnect=true&maximumReconnectAttempts=10&reconnectDelay=10&" +
         "separator=UNIX&stepwise=true&throwExceptionOnConnectFailed=true&passiveMode=true&" +
-        "timeout=10&soTimeout=10&siteCommand=PWD";
+        "timeout=10&soTimeout=10&siteCommand=PWD&initialDelay=500";
 
     public V1CamelFtpBindingModelTest() {
         super(FtpEndpoint.class, CAMEL_XML);
@@ -81,10 +84,14 @@ public class V1CamelFtpBindingModelTest extends V1BaseCamelServiceBindingModelTe
             .setSeparator(SEPARATOR.name())
             .setStepwise(STEPWISE)
             .setThrowExceptionOnConnectFailed(THROW_EXCEPTION_ON_CONNECT_FAIL);
-        return ((V1CamelFtpBindingModel) model).setPassiveMode(PASSIVE_MODE)
+        model.setPassiveMode(PASSIVE_MODE)
             .setTimeout(TIMEOUT)
             .setSoTimeout(SO_TIMEOUT)
             .setSiteCommand(SITE_COMMAND);
+        V1CamelRemoteFileConsumerBindingModel consumer = new V1CamelRemoteFileConsumerBindingModel(V1CamelFtpBindingModel.CONSUME, Constants.FTP_NAMESPACE_V1);
+        consumer.setInitialDelay(INITIAL_DELAY);
+        model.setConsumer(consumer);
+        return model;
     }
 
     @Override
@@ -106,6 +113,7 @@ public class V1CamelFtpBindingModelTest extends V1BaseCamelServiceBindingModelTe
         assertEquals(RECONNECT_DELAY, model.getReconnectDelay());
         assertEquals(MAXIMUM_RECONNECT_ATTEMPTS, model.getMaximumReconnectAttempts());
         assertEquals(DISCONNECT, model.getDisconnect());
+        assertEquals(INITIAL_DELAY, model.getConsumer().getInitialDelay());
     }
 
     @Override

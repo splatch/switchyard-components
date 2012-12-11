@@ -71,7 +71,6 @@ public abstract class V1BaseCamelBindingModel extends V1BindingModel
      */
     public V1BaseCamelBindingModel(Configuration config, Descriptor desc) {
         super(config, desc);
-        setModelChildrenOrder();
     }
 
     /**

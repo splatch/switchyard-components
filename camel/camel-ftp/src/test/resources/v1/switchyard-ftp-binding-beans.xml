@@ -37,6 +37,9 @@
                 <ftp:timeout>10</ftp:timeout>
                 <ftp:soTimeout>10</ftp:soTimeout>
                 <ftp:siteCommand>PWD</ftp:siteCommand>
+                <ftp:consume>
+                    <ftp:initialDelay>500</ftp:initialDelay>
+                </ftp:consume>
             </ftp:binding.ftp>
         </sca:service>
     </sca:composite>

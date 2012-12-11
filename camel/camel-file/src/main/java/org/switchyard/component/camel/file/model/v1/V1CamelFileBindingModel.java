@@ -137,7 +137,7 @@ public class V1CamelFileBindingModel extends V1GenericFileBindingModel
         QueryString queryString = new QueryString();
         traverseConfiguration(children, queryString, DIRECTORY);
 
-        URI newURI = URI.create("file://" + getDirectory() + queryString);
+        URI newURI = URI.create(FILE + "://" + getDirectory() + queryString);
         return newURI;
     }
 

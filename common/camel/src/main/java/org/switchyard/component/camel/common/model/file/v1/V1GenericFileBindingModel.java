@@ -69,8 +69,10 @@ public abstract class V1GenericFileBindingModel extends V1BaseCamelBindingModel
      * @param type Type of binding.
      * @param namespace Namespace of the binding
      */
-    public V1GenericFileBindingModel(String type, String namespace) {
+    protected V1GenericFileBindingModel(String type, String namespace) {
         super(type, namespace);
+ 
+        setModelChildrenOrder(DIRECTORY, AUTO_CREATE, BUFFER_SIZE, FILE_NAME, FLATTEN, CHARSET);
     }
 
     /**
@@ -79,10 +81,8 @@ public abstract class V1GenericFileBindingModel extends V1BaseCamelBindingModel
      * @param config The switchyard configuration instance.
      * @param desc The switchyard descriptor instance.
      */
-    public V1GenericFileBindingModel(Configuration config, Descriptor desc) {
+    protected V1GenericFileBindingModel(Configuration config, Descriptor desc) {
         super(config, desc);
- 
-        setModelChildrenOrder(DIRECTORY, AUTO_CREATE, BUFFER_SIZE, FILE_NAME, FLATTEN, CHARSET);
     }
 
     @Override

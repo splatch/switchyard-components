@@ -134,9 +134,9 @@ public abstract class V1CamelRemoteFileBindingModel extends V1GenericFileBinding
         super(protocol, namespace);
 
         setModelChildrenOrder(
-            HOST, PORT, USERNAME, PASSWORD, BINARY, CONNECTION_TIMEOUT,
-            THROW_EXCEPTION_ON_CONNECT_FAILED, STEPWISE, SEPARATOR, RECONNECT_DELAY,
-            MAXIMUM_RECONNECT_ATTEMPTS, DISCONNECT
+            HOST, PORT, USERNAME, PASSWORD, BINARY, CONNECTION_TIMEOUT, DISCONNECT,
+            MAXIMUM_RECONNECT_ATTEMPTS, RECONNECT_DELAY, SEPARATOR, STEPWISE,
+            THROW_EXCEPTION_ON_CONNECT_FAILED
         );
     }
 

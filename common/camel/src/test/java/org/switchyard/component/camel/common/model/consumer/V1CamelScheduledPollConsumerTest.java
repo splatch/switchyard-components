@@ -40,7 +40,7 @@ public class V1CamelScheduledPollConsumerTest {
 
     @Test
     public void testConfigOverride() {
-        CamelScheduledPollConsumer model = createModel();
+        V1CamelScheduledPollConsumer model = createModel();
         assertEquals(DELAY, model.getDelay());
         assertEquals(INITIAL_DELAY, model.getInitialDelay());
         assertEquals(TIME_UNIT, model.getTimeUnit());
@@ -50,7 +50,7 @@ public class V1CamelScheduledPollConsumerTest {
         assertEquals(new Integer(750), model.getDelay());
     }
 
-    private CamelScheduledPollConsumer createModel() {
+    private V1CamelScheduledPollConsumer createModel() {
         return new V1CamelScheduledPollConsumer("test", "test")
             .setDelay(DELAY)
             .setInitialDelay(INITIAL_DELAY)
