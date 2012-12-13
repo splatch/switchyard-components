@@ -11,7 +11,7 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.switchyard.component.camel.scanner.RouteScanner;
+import org.switchyard.component.camel.model.RouteScanner;
 import org.switchyard.config.model.ScannerInput;
 import org.switchyard.config.model.composite.ComponentModel;
 import org.switchyard.config.model.composite.ComponentServiceModel;
