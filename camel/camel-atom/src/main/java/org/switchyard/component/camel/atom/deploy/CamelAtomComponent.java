@@ -16,7 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, 
  * MA  02110-1301, USA.
  */
-package org.switchyard.component.camel.deploy;
+package org.switchyard.component.camel.atom.deploy;
 
 import org.switchyard.component.camel.atom.model.v1.V1CamelAtomBindingModel;
 import org.switchyard.component.camel.common.deploy.BaseBindingComponent;
