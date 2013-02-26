@@ -36,8 +36,8 @@ import org.switchyard.config.model.transform.TransformsModel;
 import org.switchyard.config.model.transform.v1.V1TransformsModel;
 import org.switchyard.metadata.java.JavaService;
 import org.switchyard.transform.TransformerRegistry;
-import org.switchyard.transform.config.model.JavaTransformModel;
-import org.switchyard.transform.config.model.v1.V1JavaTransformModel;
+import org.switchyard.transformation.config.model.JavaTransformModel;
+import org.switchyard.transformation.config.model.v1.V1JavaTransformModel;
 
 /**
  * Extracts the types that have been registered in Camel with a corresponding {@link TypeConverter}.

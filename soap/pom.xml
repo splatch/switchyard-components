@@ -30,6 +30,16 @@
     </parent>
     <artifactId>switchyard-component-soap</artifactId>
     <name>SwitchYard: SOAP Component</name>
+    <packaging>bundle</packaging>
+
+    <properties>
+        <osgi.export>org.switchyard.component.soap*</osgi.export>
+        <osgi.import>
+            org.jboss.wsf.spi*;resolution:=optional,
+            *
+        </osgi.import>
+    </properties>
+
     <build>
         <plugins>
             <plugin>
@@ -42,6 +52,11 @@
                         <delimiter>${*}</delimiter>
                     </delimiters>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
             </plugin>
         </plugins>
     </build>
