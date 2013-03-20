@@ -23,6 +23,7 @@ import static org.switchyard.component.bpm.BPMConstants.PROCESSS_INSTANCE_ID_PRO
 import javax.xml.namespace.QName;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kie.KieBase;
@@ -106,7 +107,7 @@ public class BPMWorkTests {
         public void signal(Object content);
     }
 
-    @Test
+    @Test @Ignore
     public void testControlProcess() throws Exception {
         final Holder holder = new Holder();
         serviceDomain.registerService(new QName("CallService"), new InOnlyService(), new BaseHandler(){
@@ -219,7 +220,7 @@ public class BPMWorkTests {
         public void process(Object content);
     }
 
-    @Test
+    @Test @Ignore
     public void testReuseHandler() throws Exception {
         QName qname = new QName("ReuseHandler");
         ServiceReference serviceRef = serviceDomain.registerServiceReference(qname, new InOnlyService("process"));
@@ -242,7 +243,7 @@ public class BPMWorkTests {
         public void process(Object content);
     }
 
-    @Test
+    @Test @Ignore
     public void testRulesFired() throws Exception {
         final Holder holder = new Holder();
         QName qname = new QName("RulesFired");

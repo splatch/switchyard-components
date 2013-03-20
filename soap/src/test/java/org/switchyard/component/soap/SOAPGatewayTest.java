@@ -75,6 +75,7 @@ import org.w3c.dom.Node;
  *
  * @author Magesh Kumar B <mageshbk@jboss.com> (C) 2011 Red Hat Inc.
  */
+@Ignore
 @RunWith(SwitchYardRunner.class)
 public class SOAPGatewayTest {
 
@@ -347,6 +348,7 @@ public class SOAPGatewayTest {
         XMLAssert.assertXMLEqual(output, response);
     }
 
+    @Ignore
     @Test
     public void invokeCustomFaultWithDetails() throws Exception {
         String faultString =  "<CustomFaultMessage>"
