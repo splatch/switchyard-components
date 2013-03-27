@@ -98,10 +98,12 @@ public class OutboundHandlerTest {
     private Exchange createExchange(final String content) {
         final Exchange exchange = mock(Exchange.class);
         final Message message = mock(Message.class);
-        final Context context = mock(Context.class);
+        final Context exchangeContext = mock(Context.class);
+        final Context messageContext = mock(Context.class);
         when(message.getContent(byte[].class)).thenReturn(content.getBytes());
         when(exchange.getMessage()).thenReturn(message);
-        when(exchange.getContext()).thenReturn(context);
+        when(exchange.getMessage().getContext()).thenReturn(messageContext);
+        when(exchange.getContext()).thenReturn(exchangeContext);
         return exchange;
     }
     

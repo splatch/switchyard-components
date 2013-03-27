@@ -202,9 +202,7 @@ public class InboundHandler extends BaseServiceHandler {
                 assertComposedMessageOK(message, operation);
             }
 
-            exchange.getContext().setProperty(MESSAGE_NAME, 
-                    operation.getInput().getMessage().getQName().getLocalPart(),
-                    Scope.IN);
+            message.getContext().setProperty(MESSAGE_NAME, operation.getInput().getMessage().getQName().getLocalPart());
 
             if (oneWay) {
                 exchange.send(message);

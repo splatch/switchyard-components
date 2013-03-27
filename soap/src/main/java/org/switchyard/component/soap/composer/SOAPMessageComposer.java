@@ -70,7 +70,7 @@ public class SOAPMessageComposer extends BaseMessageComposer<SOAPBindingData> {
         final SOAPMessage soapMessage = source.getSOAPMessage();
         final Message message = create ? exchange.createMessage() : exchange.getMessage();
 
-        getContextMapper().mapFrom(source, exchange.getContext());
+        getContextMapper().mapFrom(source, exchange.getContext(), message.getContext());
 
         final SOAPBody soapBody = soapMessage.getSOAPBody();
         if (soapBody == null) {
@@ -180,7 +180,7 @@ public class SOAPMessageComposer extends BaseMessageComposer<SOAPBindingData> {
         }
         
         try {
-            getContextMapper().mapTo(exchange.getContext(), target);
+            getContextMapper().mapTo(exchange.getContext(), message.getContext(), target);
         } catch (Exception ex) {
             throw new SOAPException("Failed to map context properties to SOAP message", ex);
         }

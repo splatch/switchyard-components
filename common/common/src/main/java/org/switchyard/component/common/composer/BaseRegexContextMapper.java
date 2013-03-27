@@ -19,6 +19,7 @@
 package org.switchyard.component.common.composer;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -26,6 +27,8 @@ import java.util.regex.PatternSyntaxException;
 
 import javax.xml.namespace.QName;
 
+import org.switchyard.Context;
+import org.switchyard.Property;
 import org.switchyard.common.lang.Strings;
 import org.switchyard.common.xml.XMLHelper;
 

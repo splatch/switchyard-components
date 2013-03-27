@@ -22,6 +22,7 @@ import org.hornetq.api.core.PropertyConversionException;
 import org.hornetq.api.core.SimpleString;
 import org.hornetq.api.core.client.ClientMessage;
 import org.switchyard.Context;
+import org.switchyard.ContextUtil;
 import org.switchyard.Property;
 import org.switchyard.Scope;
 import org.switchyard.component.common.composer.BaseRegexContextMapper;
@@ -41,14 +42,14 @@ public class HornetQContextMapper extends BaseRegexContextMapper<HornetQBindingD
      * {@inheritDoc}
      */
     @Override
-    public void mapFrom(HornetQBindingData source, Context context) throws Exception {
+    public void mapFrom(HornetQBindingData source, Context exchangeContext, Context messageContext) throws Exception {
         ClientMessage clientMessage = source.getClientMessage();
         for (SimpleString key : clientMessage.getPropertyNames()) {
             String name = key.toString();
             if (matches(name)) {
                 Object value = clientMessage.getObjectProperty(key);
                 if (value != null) {
-                    context.setProperty(name, value, Scope.IN).addLabels(HORNETQ_LABELS);
+                    messageContext.setProperty(name, value).addLabels(HORNETQ_LABELS);
                 }
             }
         }
@@ -58,9 +59,9 @@ public class HornetQContextMapper extends BaseRegexContextMapper<HornetQBindingD
      * {@inheritDoc}
      */
     @Override
-    public void mapTo(Context context, HornetQBindingData target) throws Exception {
+    public void mapTo(Context exchangeContext, Context messageContext, HornetQBindingData target) throws Exception {
         ClientMessage clientMessage = target.getClientMessage();
-        for (Property property : context.getProperties(Scope.OUT)) {
+        for (Property property : ContextUtil.properties(exchangeContext, messageContext)) {
             String name = property.getName();
             if (matches(name)) {
                 Object value = property.getValue();

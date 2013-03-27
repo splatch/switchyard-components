@@ -131,23 +131,23 @@ public class HttpGatewayTest {
     public void httpStatus() throws Exception {
         MockHandler handler = new MockHandler();
         Exchange ex = _consumerService.operation("sayHello").createExchange(handler);
-        Context ctx = ex.getContext();
-        ctx.setProperty("SomeRequestHeader", "BAR");
         Message requestMsg = ex.createMessage().setContent("magesh");
+        requestMsg.getContext().setProperty("SomeRequestHeader", "BAR");
         ex.send(requestMsg);
         handler.waitForOKMessage();
-        Assert.assertEquals(200, ctx.getProperty(HttpComposition.HTTP_RESPONSE_STATUS, Scope.OUT).getValue());
+        Message message = ex.getMessage();
+        Assert.assertEquals(200, message.getContext().getProperty(HttpComposition.HTTP_RESPONSE_STATUS).getValue());
     }
 
     @Test
     public void httpFault() throws Exception {
         MockHandler handler = new MockHandler();
         Exchange ex = _consumerService2.operation("sayHello").createExchange(handler);
-        Context ctx = ex.getContext();
         Message requestMsg = ex.createMessage().setContent("magesh");
         ex.send(requestMsg);
         handler.waitForFaultMessage();
-        Assert.assertEquals(404, ctx.getProperty(HttpComposition.HTTP_RESPONSE_STATUS, Scope.OUT).getValue());
+        Message message = ex.getMessage();
+        Assert.assertEquals(404, message.getContext().getProperty(HttpComposition.HTTP_RESPONSE_STATUS).getValue());
     }
 
     private static class HelloInterface extends BaseService {

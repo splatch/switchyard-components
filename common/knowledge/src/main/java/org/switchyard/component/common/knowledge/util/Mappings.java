@@ -304,7 +304,7 @@ public final class Mappings {
                     }
                     Map<String, Object> ctx = new HashMap<String, Object>();
                     ctx.put(EXCHANGE, exchange);
-                    ctx.put(CONTEXT, new ContextMap(exchange.getContext(), em.getScope()));
+                    ctx.put(CONTEXT, new ContextMap(exchange.getContext()));
                     ctx.put(MESSAGE, exchange.getMessage());
                     if (contextOverrides != null) {
                         for (Entry<String, Object> contextOverride : contextOverrides.entrySet()) {

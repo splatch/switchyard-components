@@ -52,7 +52,7 @@ public class BaseContextMapper<D extends BindingData> implements ContextMapper<D
      * {@inheritDoc}
      */
     @Override
-    public void mapFrom(D source, Context context) throws Exception {
+    public void mapFrom(D source, Context exchangeContext, Context messageContext) throws Exception {
         // No-op; override if desired.
     }
 
@@ -60,7 +60,7 @@ public class BaseContextMapper<D extends BindingData> implements ContextMapper<D
      * {@inheritDoc}
      */
     @Override
-    public void mapTo(Context context, D target) throws Exception {
+    public void mapTo(Context exchangeContext, Context messageContext, D target) throws Exception {
         // No-op; override if desired.
     }
 

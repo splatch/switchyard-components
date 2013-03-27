@@ -28,14 +28,14 @@ public class Mapper extends CamelContextMapper {
     public static final String VALUE = "TestValue";
 
     @Override
-    public void mapFrom(CamelBindingData source, Context context) throws Exception {
-        super.mapFrom(source, context);
-        context.setProperty(PROPERTY, VALUE);
+    public void mapFrom(CamelBindingData source, Context exchangeContext, Context messageContext) throws Exception {
+        super.mapFrom(source, exchangeContext, messageContext);
+        exchangeContext.setProperty(PROPERTY, VALUE);
     }
 
     @Override
-    public void mapTo(Context context, CamelBindingData target) throws Exception {
-        super.mapTo(context, target);
+    public void mapTo(Context exchangeContext, Context messageContext, CamelBindingData target) throws Exception {
+        super.mapTo(exchangeContext, messageContext, target);
         target.getMessage().setHeader(PROPERTY, VALUE);
     }
 

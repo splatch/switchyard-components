@@ -115,11 +115,10 @@ public class SwitchYardServiceInvoker {
             } else {
                 exchangeIn = serviceReference.createExchange(handler);
             }
-            Context contextIn = exchangeIn.getContext();
-            for (Map.Entry<String,Object> entry : request.getContext().entrySet()) {
-                contextIn.setProperty(entry.getKey(), entry.getValue(), Scope.IN);
-            }
             Message messageIn = exchangeIn.createMessage();
+            for (Map.Entry<String,Object> entry : request.getContext().entrySet()) {
+                messageIn.getContext().setProperty(entry.getKey(), entry.getValue());
+            }
             Object contentInput = request.getContent();
             if (contentInput != null) {
                 messageIn.setContent(contentInput);
@@ -129,7 +128,7 @@ public class SwitchYardServiceInvoker {
                 Exchange exchangeOut = handler.waitForOut();
                 Message messageOut = exchangeOut.getMessage();
                 contentOutput = messageOut.getContent();
-                for (Property property : exchangeOut.getContext().getProperties(Scope.OUT)) {
+                for (Property property : messageOut.getContext().getProperties()) {
                     contextOut.put(property.getName(), property.getValue());
                 }
             }

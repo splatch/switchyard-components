@@ -43,11 +43,6 @@ public class ContextProxy implements Context {
     }
 
     @Override
-    public Property getProperty(String name, Scope scope) {
-        return getContext().getProperty(name, scope);
-    }
-
-    @Override
     public Object getPropertyValue(String name) {
         return getContext().getPropertyValue(name);
     }
@@ -55,11 +50,6 @@ public class ContextProxy implements Context {
     @Override
     public Set<Property> getProperties() {
         return getContext().getProperties();
-    }
-
-    @Override
-    public Set<Property> getProperties(Scope scope) {
-        return getContext().getProperties(scope);
     }
 
     @Override
@@ -73,18 +63,8 @@ public class ContextProxy implements Context {
     }
 
     @Override
-    public void removeProperties(Scope scope) {
-        getContext().removeProperties(scope);
-    }
-
-    @Override
     public Property setProperty(String name, Object val) {
         return getContext().setProperty(name, val);
-    }
-
-    @Override
-    public Property setProperty(String name, Object val, Scope scope) {
-        return getContext().setProperty(name, val, scope);
     }
 
     @Override

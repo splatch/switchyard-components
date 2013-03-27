@@ -24,8 +24,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.switchyard.Context;
+import org.switchyard.ContextUtil;
 import org.switchyard.Property;
-import org.switchyard.Scope;
 import org.switchyard.component.common.composer.BaseRegexContextMapper;
 import org.switchyard.component.common.label.ComponentLabel;
 import org.switchyard.component.common.label.EndpointLabel;
@@ -44,7 +44,7 @@ public class RESTEasyContextMapper extends BaseRegexContextMapper<RESTEasyBindin
      * {@inheritDoc}
      */
     @Override
-    public void mapFrom(RESTEasyBindingData source, Context context) throws Exception {
+    public void mapFrom(RESTEasyBindingData source, Context exchangeContext, Context messageContext) throws Exception {
         Iterator<Map.Entry<String, List<String>>> entries = source.getHeaders().entrySet().iterator();
         while (entries.hasNext()) {
             Map.Entry<String, List<String>> entry = entries.next();
@@ -52,9 +52,9 @@ public class RESTEasyContextMapper extends BaseRegexContextMapper<RESTEasyBindin
             if (matches(name)) {
                 List<String> values = entry.getValue();
                 if ((values != null) && (values.size() == 1)) {
-                    context.setProperty(name, values.get(0), Scope.IN).addLabels(RESTEASY_LABELS);
+                    messageContext.setProperty(name, values.get(0)).addLabels(RESTEASY_LABELS);
                 } else if ((values != null) && (values.size() > 1)) {
-                    context.setProperty(name, values, Scope.IN).addLabels(RESTEASY_LABELS);
+                    messageContext.setProperty(name, values).addLabels(RESTEASY_LABELS);
                 }
             }
         }
@@ -65,9 +65,9 @@ public class RESTEasyContextMapper extends BaseRegexContextMapper<RESTEasyBindin
      */
     @Override
     @SuppressWarnings("unchecked")
-    public void mapTo(Context context, RESTEasyBindingData target) throws Exception {
+    public void mapTo(Context exchangeContext, Context messageContext, RESTEasyBindingData target) throws Exception {
         Map<String, List<String>> httpHeaders = target.getHeaders();
-        for (Property property : context.getProperties(Scope.OUT)) {
+        for (Property property : ContextUtil.properties(exchangeContext, messageContext)) {
             if (property.hasLabel(EndpointLabel.HTTP.label())) {
                 String name = property.getName();
                 if (matches(name)) {

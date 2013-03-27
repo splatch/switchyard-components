@@ -54,10 +54,10 @@ public class SOAPContextMapperTest {
         return source;
     }
 
-    private Context newSourceContext() {
-        Context source = new DefaultContext();
-        source.setProperty(FIRST_NAME.toString(), "John", Scope.OUT);
-        source.setProperty(LAST_NAME.toString(), "Doe", Scope.OUT);
+    private Context newSourceContext(Scope scope) {
+        Context source = new DefaultContext(scope);
+        source.setProperty(FIRST_NAME.toString(), "John");
+        source.setProperty(LAST_NAME.toString(), "Doe");
         return source;
     }
 
@@ -66,13 +66,12 @@ public class SOAPContextMapperTest {
         return target;
     }
 
-    private Context newTargetContext() {
-        return new DefaultContext();
+    private Context newTargetContext(Scope scope) {
+        return new DefaultContext(scope);
     }
 
     private Object getPropertyValue(Context context, QName qname) {
-        Object o = context.getProperty(qname.toString(), Scope.IN).getValue();
-        return o;
+        return context.getPropertyValue(qname.toString());
     }
 
     private Element getChildElement(SOAPMessage message, QName qname) throws Exception {
@@ -102,14 +101,16 @@ public class SOAPContextMapperTest {
         mapper.setSOAPHeadersType(soapHeadersType);
         // test mapFrom
         SOAPMessage sourceMessage = newSourceMessage();
-        Context targetContext = newTargetContext();
-        mapper.mapFrom(new SOAPBindingData(sourceMessage), targetContext);
-        Assert.assertEquals("John", getPropertyValue(targetContext, FIRST_NAME));
-        Assert.assertEquals("Doe", getPropertyValue(targetContext, LAST_NAME));
+        Context exchangeContext = newTargetContext(Scope.EXCHANGE);
+        Context messageContext = newTargetContext(Scope.MESSAGE);
+        mapper.mapFrom(new SOAPBindingData(sourceMessage), exchangeContext, messageContext);
+        Assert.assertEquals("John", getPropertyValue(messageContext, FIRST_NAME));
+        Assert.assertEquals("Doe", getPropertyValue(messageContext, LAST_NAME));
         // test mapTo
-        Context sourceContext = newSourceContext();
+        Context sourceExchangeContext = newSourceContext(Scope.EXCHANGE);
+        Context sourceMessageContext = newSourceContext(Scope.MESSAGE);
         SOAPMessage targetMessage = newTargetMessage();
-        mapper.mapTo(sourceContext, new SOAPBindingData(targetMessage));
+        mapper.mapTo(sourceExchangeContext, sourceMessageContext, new SOAPBindingData(targetMessage));
         Assert.assertEquals("John", getChildElement(targetMessage, FIRST_NAME).getTextContent());
         Assert.assertEquals("Doe", getChildElement(targetMessage, LAST_NAME).getTextContent());
     }
@@ -120,14 +121,16 @@ public class SOAPContextMapperTest {
         mapper.setSOAPHeadersType(SOAPHeadersType.XML);
         // test mapFrom
         SOAPMessage sourceMessage = newSourceMessage();
-        Context targetContext = newTargetContext();
-        mapper.mapFrom(new SOAPBindingData(sourceMessage), targetContext);
-        Assert.assertEquals("<first xmlns=\"urn:names:1.0\">John</first>", getPropertyValue(targetContext, FIRST_NAME));
-        Assert.assertEquals("<last xmlns=\"urn:names:1.0\">Doe</last>", getPropertyValue(targetContext, LAST_NAME));
+        Context exchangeContext = newTargetContext(Scope.EXCHANGE);
+        Context messageContext = newTargetContext(Scope.MESSAGE);
+        mapper.mapFrom(new SOAPBindingData(sourceMessage), exchangeContext, messageContext);
+        Assert.assertEquals("<first xmlns=\"urn:names:1.0\">John</first>", getPropertyValue(messageContext, FIRST_NAME));
+        Assert.assertEquals("<last xmlns=\"urn:names:1.0\">Doe</last>", getPropertyValue(messageContext, LAST_NAME));
         // test mapTo
-        Context sourceContext = newSourceContext();
+        Context sourceExchangeContext = newSourceContext(Scope.EXCHANGE);
+        Context sourceMessageContext = newSourceContext(Scope.MESSAGE);
         SOAPMessage targetMessage = newTargetMessage();
-        mapper.mapTo(sourceContext, new SOAPBindingData(targetMessage));
+        mapper.mapTo(sourceExchangeContext, sourceMessageContext, new SOAPBindingData(targetMessage));
         Assert.assertEquals("John", getChildElement(targetMessage, FIRST_NAME).getTextContent());
         Assert.assertEquals("Doe", getChildElement(targetMessage, LAST_NAME).getTextContent());
     }
@@ -138,14 +141,16 @@ public class SOAPContextMapperTest {
         mapper.setSOAPHeadersType(SOAPHeadersType.CONFIG);
         // test mapFrom
         SOAPMessage sourceMessage = newSourceMessage();
-        Context targetContext = newTargetContext();
-        mapper.mapFrom(new SOAPBindingData(sourceMessage), targetContext);
-        Assert.assertEquals(newConfiguration("<first xmlns=\"urn:names:1.0\">John</first>"), getPropertyValue(targetContext, FIRST_NAME));
-        Assert.assertEquals(newConfiguration("<last xmlns=\"urn:names:1.0\">Doe</last>"), getPropertyValue(targetContext, LAST_NAME));
+        Context exchangeContext = newTargetContext(Scope.EXCHANGE);
+        Context messageContext = newTargetContext(Scope.MESSAGE);
+        mapper.mapFrom(new SOAPBindingData(sourceMessage), exchangeContext, messageContext);
+        Assert.assertEquals(newConfiguration("<first xmlns=\"urn:names:1.0\">John</first>"), getPropertyValue(messageContext, FIRST_NAME));
+        Assert.assertEquals(newConfiguration("<last xmlns=\"urn:names:1.0\">Doe</last>"), getPropertyValue(messageContext, LAST_NAME));
         // test mapTo
-        Context sourceContext = newSourceContext();
+        Context sourceExchangeContext = newSourceContext(Scope.EXCHANGE);
+        Context sourceMessageContext = newSourceContext(Scope.MESSAGE);
         SOAPMessage targetMessage = newTargetMessage();
-        mapper.mapTo(sourceContext, new SOAPBindingData(targetMessage));
+        mapper.mapTo(sourceExchangeContext, sourceMessageContext, new SOAPBindingData(targetMessage));
         Assert.assertEquals("John", getChildElement(targetMessage, FIRST_NAME).getTextContent());
         Assert.assertEquals("Doe", getChildElement(targetMessage, LAST_NAME).getTextContent());
     }
@@ -156,14 +161,16 @@ public class SOAPContextMapperTest {
         mapper.setSOAPHeadersType(SOAPHeadersType.DOM);
         // test mapFrom
         SOAPMessage sourceMessage = newSourceMessage();
-        Context targetContext = newTargetContext();
-        mapper.mapFrom(new SOAPBindingData(sourceMessage), targetContext);
-        Assert.assertEquals("<first xmlns=\"urn:names:1.0\">John</first>", toString((Element)getPropertyValue(targetContext, FIRST_NAME)));
-        Assert.assertEquals("<last xmlns=\"urn:names:1.0\">Doe</last>", toString((Element)getPropertyValue(targetContext, LAST_NAME)));
+        Context exchangeContext = newTargetContext(Scope.EXCHANGE);
+        Context messageContext = newTargetContext(Scope.MESSAGE);
+        mapper.mapFrom(new SOAPBindingData(sourceMessage), exchangeContext, messageContext);
+        Assert.assertEquals("<first xmlns=\"urn:names:1.0\">John</first>", toString((Element)getPropertyValue(messageContext, FIRST_NAME)));
+        Assert.assertEquals("<last xmlns=\"urn:names:1.0\">Doe</last>", toString((Element)getPropertyValue(messageContext, LAST_NAME)));
         // test mapTo
-        Context sourceContext = newSourceContext();
+        Context sourceExchangeContext = newSourceContext(Scope.EXCHANGE);
+        Context sourceMessageContext = newSourceContext(Scope.MESSAGE);
         SOAPMessage targetMesssage = newTargetMessage();
-        mapper.mapTo(sourceContext, new SOAPBindingData(targetMesssage));
+        mapper.mapTo(sourceExchangeContext, sourceMessageContext, new SOAPBindingData(targetMesssage));
         Assert.assertEquals("John", getChildElement(targetMesssage, FIRST_NAME).getTextContent());
         Assert.assertEquals("Doe", getChildElement(targetMesssage, LAST_NAME).getTextContent());
     }

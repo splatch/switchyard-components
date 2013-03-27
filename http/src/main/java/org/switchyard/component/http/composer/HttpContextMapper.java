@@ -24,8 +24,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.switchyard.Context;
+import org.switchyard.ContextUtil;
 import org.switchyard.Property;
-import org.switchyard.Scope;
 import org.switchyard.component.common.composer.BaseRegexContextMapper;
 import org.switchyard.component.common.label.ComponentLabel;
 import org.switchyard.component.common.label.EndpointLabel;
@@ -44,14 +44,14 @@ public class HttpContextMapper extends BaseRegexContextMapper<HttpBindingData> {
      * {@inheritDoc}
      */
     @Override
-    public void mapFrom(HttpBindingData source, Context context) throws Exception {
+    public void mapFrom(HttpBindingData source, Context exchangeContext, Context messageContext) throws Exception {
         if (source instanceof HttpResponseBindingData) {
             HttpResponseBindingData response = (HttpResponseBindingData) source;
-            context.setProperty(HttpComposition.HTTP_RESPONSE_STATUS, response.getStatus(), Scope.OUT).addLabels(HTTP_LABELS);
+            messageContext.setProperty(HttpComposition.HTTP_RESPONSE_STATUS, response.getStatus()).addLabels(HTTP_LABELS);
         } else {
             HttpRequestBindingData request = (HttpRequestBindingData) source;
             if (request.getRequestInfo() != null) {
-                context.setProperty(HttpComposition.HTTP_REQUEST_INFO, request.getRequestInfo(), Scope.IN).addLabels(HTTP_LABELS);
+                messageContext.setProperty(HttpComposition.HTTP_REQUEST_INFO, request.getRequestInfo()).addLabels(HTTP_LABELS);
             }
         }
         Iterator<Map.Entry<String, List<String>>> entries = source.getHeaders().entrySet().iterator();
@@ -61,9 +61,9 @@ public class HttpContextMapper extends BaseRegexContextMapper<HttpBindingData> {
             if (matches(name)) {
                 List<String> values = entry.getValue();
                 if ((values != null) && (values.size() == 1)) {
-                    context.setProperty(name, values.get(0), Scope.IN).addLabels(HTTP_LABELS);
+                    messageContext.setProperty(name, values.get(0)).addLabels(HTTP_LABELS);
                 } else if ((values != null) && (values.size() > 1)) {
-                    context.setProperty(name, values, Scope.IN).addLabels(HTTP_LABELS);
+                    messageContext.setProperty(name, values).addLabels(HTTP_LABELS);
                 }
             }
         }
@@ -74,9 +74,9 @@ public class HttpContextMapper extends BaseRegexContextMapper<HttpBindingData> {
      */
     @Override
     @SuppressWarnings("unchecked")
-    public void mapTo(Context context, HttpBindingData target) throws Exception {
+    public void mapTo(Context exchangeContext, Context messageContext, HttpBindingData target) throws Exception {
         Map<String, List<String>> httpHeaders = target.getHeaders();
-        for (Property property : context.getProperties(Scope.OUT)) {
+        for (Property property : ContextUtil.properties(exchangeContext, messageContext)) {
             if (property.hasLabel(EndpointLabel.HTTP.label())) {
                 String name = property.getName();
                 Object value = property.getValue();

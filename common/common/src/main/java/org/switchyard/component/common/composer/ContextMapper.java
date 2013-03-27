@@ -45,17 +45,19 @@ public interface ContextMapper<D extends BindingData> {
     /**
      * Maps a source object's properties to the context.
      * @param source the object to map from
-     * @param context the context to map to
+     * @param exchangeContext the exchange context to map to
+     * @param messageContext the message context to map to
      * @throws Exception if there was a problem
      */
-    public void mapFrom(D source, Context context) throws Exception;
+    public void mapFrom(D source, Context exchangeContext, Context messageContext) throws Exception;
 
     /**
      * Maps a context's properties into a target object.
-     * @param context the context to map from
+     * @param exchangeContext the exchange context to map from
+     * @param messageContext the message context to map from
      * @param target the target to map to
      * @throws Exception if there was a problem
      */
-    public void mapTo(Context context, D target) throws Exception;
+    public void mapTo(Context exchangeContext, Context messageContext, D target) throws Exception;
 
 }

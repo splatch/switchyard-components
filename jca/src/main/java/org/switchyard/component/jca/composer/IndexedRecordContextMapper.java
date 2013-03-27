@@ -21,8 +21,8 @@ package org.switchyard.component.jca.composer;
 import javax.resource.cci.IndexedRecord;
 
 import org.switchyard.Context;
+import org.switchyard.ContextUtil;
 import org.switchyard.Property;
-import org.switchyard.Scope;
 import org.switchyard.component.common.composer.BaseRegexContextMapper;
 import org.switchyard.component.common.label.ComponentLabel;
 import org.switchyard.component.common.label.EndpointLabel;
@@ -42,15 +42,15 @@ public class IndexedRecordContextMapper extends BaseRegexContextMapper<IndexedRe
      * {@inheritDoc}
      */
     @Override
-    public void mapFrom(IndexedRecordBindingData source, Context context) throws Exception {
+    public void mapFrom(IndexedRecordBindingData source, Context exchangeContext, Context messageContext) throws Exception {
         IndexedRecord record = source.getRecord();
         String recordName = record.getRecordName();
         if (recordName != null) {
-            context.setProperty(JCAConstants.CCI_RECORD_NAME_KEY, recordName, Scope.IN).addLabels(INDEXED_RECORD_LABELS);
+            messageContext.setProperty(JCAConstants.CCI_RECORD_NAME_KEY, recordName).addLabels(INDEXED_RECORD_LABELS);
         }
         String recordDescription = record.getRecordShortDescription();
         if (recordDescription != null) {
-            context.setProperty(JCAConstants.CCI_RECORD_SHORT_DESC_KEY, recordDescription, Scope.IN).addLabels(INDEXED_RECORD_LABELS);
+            messageContext.setProperty(JCAConstants.CCI_RECORD_SHORT_DESC_KEY, recordDescription).addLabels(INDEXED_RECORD_LABELS);
         }
     }
 
@@ -59,9 +59,9 @@ public class IndexedRecordContextMapper extends BaseRegexContextMapper<IndexedRe
      */
     @SuppressWarnings("unchecked")
     @Override
-    public void mapTo(Context context, IndexedRecordBindingData target) throws Exception {
+    public void mapTo(Context exchangeContext, Context messageContext, IndexedRecordBindingData target) throws Exception {
         IndexedRecord record = target.getRecord();
-        for (Property property : context.getProperties(Scope.OUT)) {
+        for (Property property : ContextUtil.properties(exchangeContext, messageContext)) {
             String name = property.getName();
             Object value = property.getValue();
             if (value == null) {
