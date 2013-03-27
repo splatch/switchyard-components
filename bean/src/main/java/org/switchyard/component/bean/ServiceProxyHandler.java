@@ -33,7 +33,7 @@ import org.switchyard.ServiceReference;
 import org.switchyard.common.property.PropertyResolver;
 import org.switchyard.common.type.reflect.FieldAccess;
 import org.switchyard.component.bean.deploy.BeanDeploymentMetaData;
-import org.switchyard.component.bean.internal.context.ContextProxy;
+import org.switchyard.component.bean.internal.context.ExchangeHolder;
 import org.switchyard.deploy.ServiceHandler;
 import org.switchyard.exception.SwitchYardException;
 
@@ -150,11 +150,11 @@ public class ServiceProxyHandler implements ServiceHandler {
                 }
 
                 Object responseObject;
-                ContextProxy.setContext(exchange.getContext());
+                ExchangeHolder.setExchange(exchange);
                 try {
                     responseObject = invocation.getMethod().invoke(_serviceBean, invocation.getArgs());
                 } finally {
-                    ContextProxy.setContext(null);
+                    ExchangeHolder.setExchange(null);
                 }
                 
                 if (exchangePattern == ExchangePattern.IN_OUT) {

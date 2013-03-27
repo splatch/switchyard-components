@@ -19,7 +19,11 @@
 
 package org.switchyard.component.bean.internal.context;
 
-import org.switchyard.Context;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.spi.CreationalContext;
@@ -28,11 +32,8 @@ import javax.enterprise.inject.Default;
 import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.enterprise.util.AnnotationLiteral;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Type;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+
+import org.switchyard.Context;
 
 /**
  * Context Bean.
@@ -41,24 +42,22 @@ import java.util.Set;
  *
  * @author <a href="mailto:tom.fennelly@gmail.com">tom.fennelly@gmail.com</a>
  */
-public class ContextBean implements Bean {
+public class ContextBean implements Bean<Context> {
 
     /**
-     * CDI bean qualifiers.  See CDI Specification.
+     * Scope of the Context bean.
      */
-    private Set<Annotation> _qualifiers;
+    private final Annotation _qualifier;
 
-    private ContextProxy _contextProxy = new ContextProxy();
+    private ContextProxy _contextProxy;
 
     /**
      * Public constructor.
+     * @param qualifier 
      */
-    public ContextBean() {
-        this._qualifiers = new HashSet<Annotation>();
-        this._qualifiers.add(new AnnotationLiteral<Default>() {
-        });
-        this._qualifiers.add(new AnnotationLiteral<Any>() {
-        });
+    public ContextBean(Annotation qualifier, ContextResolver resolver) {
+        this._qualifier = qualifier;
+        this._contextProxy = new ContextProxy(resolver);
     }
 
     /**
@@ -79,7 +78,11 @@ public class ContextBean implements Bean {
      * @return the {@linkplain javax.inject.Qualifier qualifiers}
      */
     public Set<Annotation> getQualifiers() {
-        return _qualifiers;
+        Set<Annotation> qualifiers = new HashSet<Annotation>();
+//        qualifiers.add(new AnnotationLiteral<Default>() {});
+//        qualifiers.add(new AnnotationLiteral<Any>() {});
+        qualifiers.add(_qualifier);
+        return qualifiers;
     }
 
     /**
@@ -168,7 +171,7 @@ public class ContextBean implements Bean {
      * @param creationalContext the context in which this instance is being created
      * @return the contextual instance
      */
-    public Object create(CreationalContext creationalContext) {
+    public Context create(CreationalContext<Context> creationalContext) {
         return _contextProxy;
     }
 
@@ -181,7 +184,8 @@ public class ContextBean implements Bean {
      * @param instance          the contextual instance to destroy
      * @param creationalContext the context in which this instance was created
      */
-    public void destroy(Object instance, CreationalContext creationalContext) {
-
+    public void destroy(Context instance, CreationalContext<Context> creationalContext) {
+        creationalContext.release();
     }
+
 }

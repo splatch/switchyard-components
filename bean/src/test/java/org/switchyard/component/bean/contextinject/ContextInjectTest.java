@@ -26,11 +26,11 @@ import org.switchyard.Context;
 import org.switchyard.Exchange;
 import org.switchyard.Message;
 import org.switchyard.SynchronousInOutHandler;
+import org.switchyard.component.test.mixins.cdi.CDIMixIn;
 import org.switchyard.test.Invoker;
 import org.switchyard.test.SwitchYardRunner;
 import org.switchyard.test.SwitchYardTestCaseConfig;
 import org.switchyard.test.SwitchYardTestKit;
-import org.switchyard.component.test.mixins.cdi.CDIMixIn;
 
 /**
  * @author <a href="mailto:tom.fennelly@gmail.com">tom.fennelly@gmail.com</a>
@@ -42,13 +42,28 @@ public class ContextInjectTest {
     private SwitchYardTestKit _testKit;
 
     @Test
-    public void test() {
-
-        Invoker invoker = _testKit.newInvoker("ContextInjectService.doSomething");
+    public void testMessageScope() {
+        Invoker invoker = _testKit.newInvoker("ContextInjectService.doSomethingWithMessageScope");
         SynchronousInOutHandler handler = new SynchronousInOutHandler();
         Exchange exchange = invoker.createExchange(handler);
-        Context context = exchange.getContext();
         Message message = exchange.createMessage();
+        Context context = message.getContext();
+
+        context.setProperty("someProp", "somePropVal");
+        message.setContent("blah");
+        exchange.send(message);
+
+        Exchange outExchange = handler.waitForOut();
+        Assert.assertEquals("somePropVal", outExchange.getMessage().getContent());
+    }
+
+    @Test
+    public void testExchangeScope() {
+        Invoker invoker = _testKit.newInvoker("ContextInjectService.doSomethingWithExchangeScope");
+        SynchronousInOutHandler handler = new SynchronousInOutHandler();
+        Exchange exchange = invoker.createExchange(handler);
+        Message message = exchange.createMessage();
+        Context context = exchange.getContext();
 
         context.setProperty("someProp", "somePropVal");
         message.setContent("blah");

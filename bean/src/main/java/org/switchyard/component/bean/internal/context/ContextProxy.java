@@ -21,21 +21,21 @@ package org.switchyard.component.bean.internal.context;
 
 import java.util.Set;
 
-import javax.enterprise.context.ApplicationScoped;
-
 import org.switchyard.Context;
 import org.switchyard.Property;
-import org.switchyard.Scope;
 
 /**
  * SwitchYard Context proxy.
  *
  * @author <a href="mailto:tom.fennelly@gmail.com">tom.fennelly@gmail.com</a>
  */
-@ApplicationScoped
 public class ContextProxy implements Context {
 
-    private static ThreadLocal<Context> _context = new ThreadLocal<Context>();
+    private ContextResolver _resolver;
+
+    public ContextProxy(ContextResolver resolver) {
+        _resolver = resolver;
+    }
 
     @Override
     public Property getProperty(String name) {
@@ -43,7 +43,7 @@ public class ContextProxy implements Context {
     }
 
     @Override
-    public Object getPropertyValue(String name) {
+    public <T> T getPropertyValue(String name) {
         return getContext().getPropertyValue(name);
     }
 
@@ -87,30 +87,8 @@ public class ContextProxy implements Context {
         getContext().removeProperties(label);
     }
 
-    /**
-     * Set the {@link Context} for the current thread.
-     * @param context The context.
-     */
-    public static void setContext(Context context) {
-        if (context != null) {
-            _context.set(context);
-        } else {
-            _context.remove();
-        }
-    }
-
-    /**
-     * Get the {@link Context} for the current thread.
-     * @return The context.
-     */
-    private static Context getContext() {
-        Context context = _context.get();
-
-        if (context == null) {
-            throw new UnsupportedOperationException("Illegal call to get the SwitchYard Exchange Context.  Must be called within the scope of an Exchange Handler Chain.");
-        }
-
-        return context;
+    private Context getContext() {
+        return _resolver.getContext();
     }
 
 }

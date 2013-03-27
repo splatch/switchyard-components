@@ -23,5 +23,6 @@ package org.switchyard.component.bean.contextinject;
  * @author <a href="mailto:tom.fennelly@gmail.com">tom.fennelly@gmail.com</a>
  */
 public interface ContextInjectService {
-    String doSomething(String in);
+    String doSomethingWithMessageScope(String in);
+    String doSomethingWithExchangeScope(String in);
 }

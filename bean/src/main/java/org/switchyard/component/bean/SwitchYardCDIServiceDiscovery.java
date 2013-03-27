@@ -43,7 +43,9 @@ import org.switchyard.component.bean.deploy.BeanDeploymentMetaData;
 import org.switchyard.component.bean.deploy.BeanDeploymentMetaDataCDIBean;
 import org.switchyard.component.bean.deploy.CDIBean;
 import org.switchyard.component.bean.deploy.CDIBeanServiceDescriptor;
-import org.switchyard.component.bean.internal.context.ContextBean;
+import org.switchyard.component.bean.internal.context.ExchangeContextProducer;
+import org.switchyard.component.bean.internal.context.ExchangeContextProducer;
+import org.switchyard.component.bean.internal.context.MessageContextProducer;
 
 /**
  * Portable CDI extension for SwitchYard.
@@ -130,7 +132,10 @@ public class SwitchYardCDIServiceDiscovery implements Extension {
         }
 
         afterEvent.addBean(new BeanDeploymentMetaDataCDIBean(_beanDeploymentMetaData));
-        afterEvent.addBean(new ContextBean());
+        ExchangeContextProducer exchangeContext = new ExchangeContextProducer();
+        MessageContextProducer messageContext = new MessageContextProducer();
+        afterEvent.addBean(exchangeContext.getContextBean());
+        afterEvent.addBean(messageContext.getContextBean());
 
         _logger.debug("CDI Bean discovery process completed.");
     }

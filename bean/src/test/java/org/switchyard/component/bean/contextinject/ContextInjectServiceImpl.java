@@ -19,10 +19,12 @@
 
 package org.switchyard.component.bean.contextinject;
 
-import org.switchyard.Context;
-import org.switchyard.component.bean.Service;
-
 import javax.inject.Inject;
+
+import org.switchyard.Context;
+import org.switchyard.component.bean.Exchange;
+import org.switchyard.component.bean.Message;
+import org.switchyard.component.bean.Service;
 
 /**
  * @author <a href="mailto:tom.fennelly@gmail.com">tom.fennelly@gmail.com</a>
@@ -30,11 +32,20 @@ import javax.inject.Inject;
 @Service(ContextInjectService.class)
 public class ContextInjectServiceImpl implements ContextInjectService {
 
-    @Inject
-    private Context context;
+    @Inject @Message
+    private Context messageContext;
+
+    @Inject @Exchange
+    private Context exchangeContext;
 
     @Override
-    public String doSomething(String in) {
-        return (String) context.getProperty("someProp").getValue();
+    public String doSomethingWithMessageScope(String in) {
+        return (String) messageContext.getProperty("someProp").getValue();
     }
+
+    @Override
+    public String doSomethingWithExchangeScope(String in) {
+        return (String) exchangeContext.getProperty("someProp").getValue();
+    }
+
 }
