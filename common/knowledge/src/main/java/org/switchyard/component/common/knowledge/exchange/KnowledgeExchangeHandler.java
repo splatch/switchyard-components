@@ -29,7 +29,6 @@ import org.switchyard.Context;
 import org.switchyard.Exchange;
 import org.switchyard.ExchangePhase;
 import org.switchyard.HandlerException;
-import org.switchyard.Property;
 import org.switchyard.Scope;
 import org.switchyard.ServiceDomain;
 import org.switchyard.common.lang.Strings;
@@ -331,12 +330,13 @@ public abstract class KnowledgeExchangeHandler<M extends KnowledgeComponentImple
      * @return the property
      */
     protected Object getObject(Exchange exchange, String name, Scope scope) {
-        Context context = exchange.getContext();
-        Property property = context.getProperty(name, scope);
-        if (property == null && !Scope.EXCHANGE.equals(scope)) {
-            property = context.getProperty(name, Scope.EXCHANGE);
+        Context exchangeContext = exchange.getContext();
+        Context messageContext = exchange.getMessage().getContext();
+
+        if (Scope.EXCHANGE.equals(scope)) {
+            return exchangeContext.getPropertyValue(name);
         }
-        return property != null ? property.getValue() : null;
+        return messageContext.getPropertyValue(name);
     }
 
 }

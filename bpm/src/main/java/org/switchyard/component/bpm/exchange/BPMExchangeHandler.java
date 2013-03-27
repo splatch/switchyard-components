@@ -36,7 +36,6 @@ import org.jbpm.persistence.JpaProcessPersistenceContextManager;
 import org.jbpm.workflow.instance.impl.WorkflowProcessInstanceImpl;
 import org.kie.runtime.EnvironmentName;
 import org.kie.runtime.process.ProcessInstance;
-import org.switchyard.Context;
 import org.switchyard.Exchange;
 import org.switchyard.ExchangePattern;
 import org.switchyard.HandlerException;
@@ -219,7 +218,7 @@ public class BPMExchangeHandler extends KnowledgeExchangeHandler<BPMComponentImp
     private KnowledgeSession getBPMSession(Exchange exchange) {
         KnowledgeSession session;
         if (_persistent) {
-            Integer sessionId = getInteger(exchange, BPMConstants.SESSION_ID_PROPERTY, Scope.IN);
+            Integer sessionId = getInteger(exchange, BPMConstants.SESSION_ID_PROPERTY, Scope.MESSAGE);
             session = getPersistentSession(sessionId);
         } else {
             session = getStatefulSession();
@@ -229,11 +228,11 @@ public class BPMExchangeHandler extends KnowledgeExchangeHandler<BPMComponentImp
     }
 
     private Long getProcessInstanceId(Exchange exchange) {
-        return getLong(exchange, BPMConstants.PROCESSS_INSTANCE_ID_PROPERTY, Scope.IN);
+        return getLong(exchange, BPMConstants.PROCESSS_INSTANCE_ID_PROPERTY, Scope.MESSAGE);
     }
 
     private Object getSignalEvent(Exchange exchange) {
-        Object signalEvent = getObject(exchange, BPMConstants.SIGNAL_EVENT_PROPERTY, Scope.IN);
+        Object signalEvent = getObject(exchange, BPMConstants.SIGNAL_EVENT_PROPERTY, Scope.MESSAGE);
         if (signalEvent == null) {
             signalEvent = exchange.getMessage().getContent();
         }
@@ -241,7 +240,7 @@ public class BPMExchangeHandler extends KnowledgeExchangeHandler<BPMComponentImp
     }
 
     private String getSignalId(Exchange exchange, KnowledgeAction action) {
-        String signalId = getString(exchange, BPMConstants.SIGNAL_ID_PROPERTY, Scope.IN);
+        String signalId = getString(exchange, BPMConstants.SIGNAL_ID_PROPERTY, Scope.MESSAGE);
         if (signalId == null) {
             signalId = action.getId();
         }
@@ -250,16 +249,15 @@ public class BPMExchangeHandler extends KnowledgeExchangeHandler<BPMComponentImp
 
     private Message handleOutput(Exchange exchange, KnowledgeAction action, KnowledgeSession session, ProcessInstance processInstance) {
         Message outputMessage = exchange.createMessage();
-        Context context = exchange.getContext();
         Integer sessionId = session.getId();
         if (sessionId != null && sessionId.intValue() > 0) {
-            context.setProperty(BPMConstants.SESSION_ID_PROPERTY, sessionId, Scope.OUT);
+        	outputMessage.getContext().setProperty(BPMConstants.SESSION_ID_PROPERTY, sessionId);
         }
         Map<String, Object> expressionVariables = new HashMap<String, Object>();
         if (processInstance != null) {
             long processInstanceId = processInstance.getId();
             if (processInstanceId > 0) {
-                context.setProperty(BPMConstants.PROCESSS_INSTANCE_ID_PROPERTY, Long.valueOf(processInstanceId), Scope.OUT);
+                outputMessage.getContext().setProperty(BPMConstants.PROCESSS_INSTANCE_ID_PROPERTY, Long.valueOf(processInstanceId));
             }
             if (processInstance instanceof WorkflowProcessInstanceImpl) {
                 Map<String, Object> processInstanceVariables = ((WorkflowProcessInstanceImpl)processInstance).getVariables();
@@ -276,7 +274,7 @@ public class BPMExchangeHandler extends KnowledgeExchangeHandler<BPMComponentImp
                 if (KnowledgeConstants.CONTENT_OUTPUT.equals(key)) {
                     outputMessage.setContent(value);
                 } else {
-                    context.setProperty(key, value, Scope.OUT);
+                	outputMessage.getContext().setProperty(key, value);
                 }
             }
         }

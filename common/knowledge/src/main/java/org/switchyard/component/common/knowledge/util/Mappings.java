@@ -80,8 +80,8 @@ public final class Mappings {
                 }
                 KnowledgeAction action = new KnowledgeAction(id, type);
                 registerExpressionMappings(actionModel.getGlobals(), action.getGlobalExpressionMappings(), Scope.EXCHANGE);
-                registerExpressionMappings(actionModel.getInputs(), action.getInputExpressionMappings(), Scope.IN);
-                registerExpressionMappings(actionModel.getOutputs(), action.getOutputExpressionMappings(), Scope.OUT);
+                registerExpressionMappings(actionModel.getInputs(), action.getInputExpressionMappings(), Scope.MESSAGE);
+                registerExpressionMappings(actionModel.getOutputs(), action.getOutputExpressionMappings(), Scope.MESSAGE);
                 if (actions.containsKey(operation)) {
                     throw new SwitchYardException(String.format("cannot register %s action due to duplicate operation: %s", type, operation));
                 }

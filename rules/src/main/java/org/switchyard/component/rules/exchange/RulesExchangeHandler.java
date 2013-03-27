@@ -179,7 +179,7 @@ public class RulesExchangeHandler extends KnowledgeExchangeHandler<RulesComponen
     */
 
     private boolean isDispose(Exchange exchange) {
-        return isBoolean(exchange, RulesConstants.DISPOSE_PROPERTY, Scope.IN);
+        return isBoolean(exchange, RulesConstants.DISPOSE_PROPERTY, Scope.MESSAGE);
     }
 
     private final class FireUntilHalt implements Runnable, KnowledgeDisposal {

@@ -32,7 +32,6 @@ import org.switchyard.Exchange;
 import org.switchyard.ExchangeState;
 import org.switchyard.HandlerException;
 import org.switchyard.Message;
-import org.switchyard.Scope;
 import org.switchyard.ServiceDomain;
 import org.switchyard.ServiceReference;
 import org.switchyard.SynchronousInOutHandler;
@@ -254,17 +253,17 @@ public class RiftsawServiceLocator implements ServiceLocator {
             // Need to create an exchange
             SynchronousInOutHandler rh = new SynchronousInOutHandler();
             Exchange exchange=_serviceReference.createExchange(operationName, rh);
-            
-            Message req=exchange.createMessage();            
+
+            Message req = exchange.createMessage();
             req.setContent(mesg);
             if (headers != null) {
                 Set<String> keys = headers.keySet();
                 for (String key : keys) {
-                    exchange.getContext().setProperty(key,headers.get(key), Scope.IN).addLabels(EndpointLabel.SOAP.label());
+                    req.getContext().setProperty(key,headers.get(key)).addLabels(EndpointLabel.SOAP.label());
                 }
             }
             exchange.send(req);
-            
+
             try {
                 exchange = rh.waitForOut(_waitTimeout);
             } catch (DeliveryException e) {
